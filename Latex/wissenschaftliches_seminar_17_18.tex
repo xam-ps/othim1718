@@ -1,0 +1,77 @@
+%% LyX 2.1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[
+12pt,
+ngerman,
+%american,
+pointlessnumbers,
+abstracton
+]{scrreprt}
+
+
+\input{Input/Packages}
+\input{Input/Seitenstil}
+\makeglossaries
+
+\begin{document}
+
+\input{Input/Deckblatt}
+
+\input{Input/Abstract}
+
+\input{Input/Glossar}
+\printglossary[type=\acronymtype,
+		style=long,
+		nonumberlist,
+		title=Abkürzungsverzeichnis
+	]
+
+\newpage{}
+
+\tableofcontents{}
+
+\newpage{}
+
+\pagenumbering{roman}
+
+%\setcounter{page}{7}
+
+\pagenumbering{arabic}
+
+\input{Kapitel/1}
+\input{Kapitel/2}
+\input{Kapitel/3}
+\input{Kapitel/4}
+%\input{Kapitel/5_chapter}
+
+\clearpage
+\phantomsection
+
+%\selectlanguage{american}%
+\selectlanguage{ngerman}
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+\newpage{}
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+\newpage{}
+
+\clearpage
+\phantomsection
+
+\input{Input/Anhang}
+
+\newpage{}
+
+\clearpage
+\phantomsection
+
+\bibliographystyle{bibtex-daten/unsrtdin}
+\addcontentsline{toc}{chapter}{\bibname}\nocite{*}
+\bibliography{bibtex-daten/wissenschaftliches_seminar}
+
+\end{document}
