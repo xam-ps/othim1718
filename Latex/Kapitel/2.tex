@@ -1,21 +1,18 @@
 \chapter{Das Framework TensorFlow}
 
-\gls{TF} ist ein \gls{ML} Framework, das f�r gro�e und variable Architekturen entwickelt wurde. Um die einzelnen Verarbeitungsschritte der Daten darzustellen, werden von \gls{TF} sogenannte Datenfluss Graphen verwendet. Diese bieten auch die M�glichkeit f�r alle Operationen festzulegen, von welcher Hardware sie berechnet werden sollen. \gls{TF} unterst�tzt dabei CPUs, GPGPUs\footnote{general-purpose graphics processing units} und eigens f�r \gls{ML} entwickelte Hardware.
+\gls{TF} ist eine plattformunabhängige Bibliothek für \gls{ML}, die für große und variable Architekturen entwickelt~\cite{tensorflow2016-whitepaper} und Ende 2015 veröffentlicht wurde~\cite{tf-opensource}. Um die einzelnen Verarbeitungsschritte der Daten darzustellen, werden von \gls{TF} sogenannte Datenfluss Graphen verwendet. Diese bieten auch die Möglichkeit für alle Operationen festzulegen, von welcher Hardware sie berechnet werden sollen. \gls{TF} unterstützt dabei CPUs, GPGPUs\footnote{general-purpose graphics processing units} und eigens für \gls{ML} entwickelte Hardware.
 %http://www.cs.virginia.edu/~gurumurthi/papers/DATE14.pdf
-Besonders umfangreich unterst�tzt das Framework dabei Arbeiten im Bereich der (tiefen) \gls{NL}. Schnittstellen zu den Hochsprachen Python und C++ sollen den Einstieg erleichtern und sicherstellen, dass die verf�gbare Hardware immer bestm�glich genutzt werden kann. Mit dem sogenannte Tensorboard bringt \gls{TF} au�erdem eine Weboberfl�che mit, die ohne gro�en Aufwand f�r den Entwickler viele relevante Informationen ausgibt und teilweise auch grafisch aufbereitet.
+Besonders umfangreich unterstützt das Framework dabei Arbeiten im Bereich der (tiefen) \gls{NL}. Schnittstellen zu den Hochsprachen Python und C++ sollen den Einstieg erleichtern und sicherstellen, dass die verfügbare Hardware immer bestmöglich genutzt werden kann. Mit dem sogenannte Tensorboard bringt \gls{TF} außerdem eine Weboberfläche mit, die ohne großen Aufwand für den Entwickler viele relevante Informationen ausgibt und teilweise auch grafisch aufbereitet~\cite{tensorflow2016-whitepaper}.
 
-\section{Eine Einf�hrung zu TensorFlow}
+\section{Eine Einführung zu TensorFlow}
 
 %evtl. Vergleich mit anderen Frameworks (CAFFE, Torch, ...)
 
-\section{Der Weg des Frameworks zur Open Source Software}
-%-Distbelief
-
-%\subsection{Der Weg zur Open Source Software}
-
-
+\section{Die Entwicklung von Tensorflow}
+Bereits 2012 wurde von Google Mitarbeitern ein Paper veröffentlicht, das über den internen Einsatz eines eigens entwickelten Software Frameworks für den Umgang mit großen \gls{ML} Modellen berichtet. Das "`DistBelief"' genannte Framework ermöglichte bereits die Nutzung von zentausenden CPU-Kernen, wodurch auch sehr große Modelle in absehbarer Zeit trainiert werden konnten~\cite{NIPS2012}. Im November 2015 wurde dann \gls{TF} veröffentlicht~\cite{tf-opensource} und ist seit dem auf github unter der Apache License 2.0 verfügbar~\cite{tf-git}.  Mit der Veröffentlichung von Version 1.0 im Februar 2017 wurde schließlich eine verlässliche API eingeführt, die auch in Zukunft sicher stellen soll, dass der geschriebene Code mit neuen Versionen von \gls{TF} kompatibel ist~\cite{tf1}. Des weiteren wurde die Leistung weiter verbessert und die Einführung eines neuen Moduls ermöglicht seither die Nutzung von \gls{TF} mit Keras\footnote{Keras ist eine Deep Learning Library, die auf \gls{TF}, CNTK oder Theano aufsetzt.}.
 
 \section{Angesprochene Zielgruppe}
+%Research as well as production.
 
 
 \section{Hard- und Software Anforderungen}

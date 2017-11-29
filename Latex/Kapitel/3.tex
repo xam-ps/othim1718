@@ -1,4 +1,4 @@
-\chapter{Der Allgemeine Workflow in TensorFlow}
+ï»¿\chapter{Der Allgemeine Workflow in TensorFlow}
 
 
 
@@ -16,7 +16,7 @@
 
 \section{Die Visualisierung mit TensorBoard}
 
-TensorBoard ist eine in der Installation von TensorFlow enthaltene Webanwendung zur Visualisierung der Abläufe in einem neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur Verfügung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso können damit insbesondere komplexe Datenstrukturen zum besseren Verständnis anschaulich visualisiert werden.
+TensorBoard ist eine in der Installation von TensorFlow enthaltene Webanwendung zur Visualisierung der AblÃ¤ufe in einem neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur VerfÃ¼gung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso kÃ¶nnen damit insbesondere komplexe Datenstrukturen zum besseren VerstÃ¤ndnis anschaulich visualisiert werden.
 
 Bevor mit TensorBoard gearbeitet werden kann, muss folgender Befehl \ref{formel1} in die Kommandozeile eingegeben werden:
 \\
@@ -27,7 +27,7 @@ Bevor mit TensorBoard gearbeitet werden kann, muss folgender Befehl \ref{formel1
 \end{equation}
 
 \vspace{0.4cm}
-wobei vorher im spezifizierten Log Ordner die gewünschten Event Daten mit der Klasse \textit{tf.summary.FileWriter('path/to/log-directory')} abgespeichert werden müssen. Nachdem TensorBoard gestart wurde, navigiert man mit dem Browser zu folgender Seite:
+wobei vorher im spezifizierten Log Ordner die gewÃ¼nschten Event Daten mit der Klasse \textit{tf.summary.FileWriter('path/to/log-directory')} abgespeichert werden mÃ¼ssen. Nachdem TensorBoard gestart wurde, navigiert man mit dem Browser zu folgender Seite:
 
 
 \begin{equation}
@@ -50,11 +50,11 @@ Falls keine Fehlermeldungen aufgetreten sind, sollte folgender Bildschirminhalt 
 
 
 
-\subsection{Die einzelnen Visualisierungsmöglichkeiten im Detail}
+\subsection{Die einzelnen VisualisierungsmÃ¶glichkeiten im Detail}
 
 \textbf{\textit{Skalare}} 
 \vspace{10pt}\\
-Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können.
+Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  abgespeichert werden, kÃ¶nnen verschiedenste Statistiken wÃ¤hrend eines Trainingsprozesses visualisiert werden. Dies kÃ¶nnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit Ã¼ber den einzelnen Trainingsschritten aufgetragen. WÃ¤hlt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden kÃ¶nnen.
 
 \begin{figure}[h!]
 	\centering
@@ -62,7 +62,7 @@ Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  ab
 	%\hspace{-1.0cm} 
 	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/skalars.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung der 'Accuracy' und 'Cross\_entropy' über die einzelnen Trainingsschritte]{Visualisierung der 'Accuracy' und 'Cross\_entropy' über die einzelnen Trainingschritte}
+	\caption[Visualisierung der 'Accuracy' und 'Cross\_entropy' Ã¼ber die einzelnen Trainingsschritte]{Visualisierung der 'Accuracy' und 'Cross\_entropy' Ã¼ber die einzelnen Trainingschritte}
 	\label{fig:skalare}
 \end{figure}
 
@@ -76,8 +76,8 @@ Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  ab
 	\caption{Bild des Testschrittes 490}
 \end{wrapfigure}
 
-Innerhalb des Reiters Bilder, welche mit der Klasse \dq tf.summary.image\grqq{} abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
-Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört.
+Innerhalb des Reiters Bilder, welche mit der Klasse \dq tf.summary.image\grqq{} abgespeichert werden, kÃ¶nnen zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
+Ãœber den Bildern ist eine Scrollbar vorhanden mit dieser kÃ¶nnen einzelne Test- und Trainingsschritte ausgewÃ¤hlt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehÃ¶rt.
 \vspace{50pt}
 \newpage
 
@@ -100,7 +100,7 @@ Innerhalb des Reiters Bilder, welche mit der Klasse \dq tf.summary.image\grqq{} 
 
 \textbf{\textit{Graphen}}
 \vspace{10pt}\\
-Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Um einen Graphen in Tensorboard zu erhalten, müssen im Programm die gewünschten Operationen als Name scope erstellt werden. Mit nachfolgendem Befehl \ref{formel3} erhält man einen 'cross\_entropy' Name scope: 
+Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Um einen Graphen in Tensorboard zu erhalten, mÃ¼ssen im Programm die gewÃ¼nschten Operationen als Name scope erstellt werden. Mit nachfolgendem Befehl \ref{formel3} erhÃ¤lt man einen 'cross\_entropy' Name scope: 
 
 
 \begin{equation}
@@ -108,12 +108,12 @@ Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph 
 \label{formel3}
 \end{equation}
 
-Der Name scope \textit{cross\_entropy} Abbildung \ref{fig:name_scope_cross_entropy} kann natürlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhält man eine übersichtliche Visualisierung komplexer TensorFlow Modelle. 
+Der Name scope \textit{cross\_entropy} Abbildung \ref{fig:name_scope_cross_entropy} kann natÃ¼rlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhÃ¤lt man eine Ã¼bersichtliche Visualisierung komplexer TensorFlow Modelle. 
 
 \vspace{10pt}
 \textbf{\textit{Histogramme}}
 \vspace{10pt}\\
-Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grqq{} abgespeichert werden, wird die statistische Verteilung eines Tensors über der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert.
+Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grqq{} abgespeichert werden, wird die statistische Verteilung eines Tensors Ã¼ber der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert.
 
 
 \begin{figure}[h!]
@@ -122,7 +122,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 	%\hspace{-1.0cm} 
 	 \includegraphics[width=0.7\textwidth]{images/Kapitel_3/histogram.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung eines Histogramms über die einzelnen Trainingsschritte]{Visualisierung eines Histogramms über die einzelnen Trainingschritte}
+	\caption[Visualisierung eines Histogramms Ã¼ber die einzelnen Trainingsschritte]{Visualisierung eines Histogramms Ã¼ber die einzelnen Trainingschritte}
 	\label{fig:histogram}
 \end{figure}
 
@@ -148,7 +148,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 
 \subsection{Die Graphelemente im Datenfluss}
 
- Dafür wurden zahlreiche unterschiedliche Elemente definiert, welche nachfolgend kurz erläutert werden. 
+ DafÃ¼r wurden zahlreiche unterschiedliche Elemente definiert, welche nachfolgend kurz erlÃ¤utert werden. 
 \\
 
 \begin{tabular}{ p{4cm}p{10.8cm} ll }
@@ -156,7 +156,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 \textbf{Namespace} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/namespace.png}
 \label{fig:namespace}
- & High-level Knoten repräsentiert einen definierten Namensbereich.   \tabularnewline
+ & High-level Knoten reprÃ¤sentiert einen definierten Namensbereich.   \tabularnewline
   
 \textbf{Unconnected series} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/Unconnected_series.png}
@@ -176,7 +176,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 \textbf{Constant} \tabularnewline 
 \includegraphics[width=0.08\textwidth]{images/Kapitel_3/Constant.png}
 \label{fig:Constant}
- & Repräsentiert eine Konstante im Programm.  \tabularnewline 
+ & ReprÃ¤sentiert eine Konstante im Programm.  \tabularnewline 
 
 \textbf{Summary node} \tabularnewline 
 \includegraphics[width=0.07\textwidth]{images/Kapitel_3/Summary_node.png}
@@ -191,7 +191,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 \textbf{Control edge} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/Control_dependency_edge.png}
 \label{fig:Control_dependendy_edge}
- & Gepunkteter Pfeil zeigt die Steuerungsabhängigkeit zwischen den Operationen an.  \tabularnewline 
+ & Gepunkteter Pfeil zeigt die SteuerungsabhÃ¤ngigkeit zwischen den Operationen an.  \tabularnewline 
  
 \textbf{Reference edge} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/Reference_edge.png}
