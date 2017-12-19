@@ -26,14 +26,21 @@ Im Gegensatz zu DistBelief, welches viele Forschungsgebiete zu unflexibel war, i
 
 
 \section{Hard- und Software Anforderungen}
+Tensorflow wurde von Grund auf so gestaltet, dass es eine möglichst großen Bandbreite an Hardware zur Berechnung der \gls{NN} nutzen kann und auch größtenteils unabhängig von dem System ist, auf dem es ausgeführt wird.
 
+\subsection{Betriebssysteme}
+\gls{TF} ist seit dem Anfang auf Linux und MacOS lauffähig. Seit Version 0.12 wird außerdem Windows unterstützt~\cite{tf0.12}. Die reine Ausführung eines bereits trainierten Netzes (Inference) ist außerdem auch auf Android und iOS möglich~\cite{tensorflow2015-whitepaper}\cite{tensorflow2016-whitepaper}.
 
+\subsection{Hardware Unterstützung}
+Lernalgorithmen basieren oft auf aufwändigen Rechenoperationen, die zwar hoch parallelisierbar sind, meist jedoch auch große Abhängigkeiten beim Datenzugriff aufweisen. Ein Beispiel hierfür sind Matrix Multiplikationen. Mit dem Aufkommen von so genannten `"generall purpose GPUs'" die eine große Anzahl an Recheneinheiten und schnellen lokalen Speicher bieten, konnten ~\gls{NN} stark beschleunigt werden.
 
-\subsection{Hardware Anforderungen}
+~\{TF} bietet hier den Vorteil, dass es unabhängig von der vorhandenen Hardware eingesetzt werden kann. Es werden sowohl CPUs als auch eine Vielzahl von NVIDIA GPUs unterstützt. Andere GPUs werden im Moment leider noch nicht unterstützt. Für die Verwendung der NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version 8.0 	sowie cuDNN v6.0 installiert sein. 
 %-CPU
 %-GPU (nvidia mit CUDa support)
 %-TPU
 %-FPGA
+
+In Tensorflow kann auch genau definiert werden, welche Schritte im Programmcode von welcher Recheneinheit ausgeführt werden sollen. 
 \subsection{Software Anforderungen}
 
 
