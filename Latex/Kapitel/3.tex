@@ -32,16 +32,33 @@ Tensorflow wurde von Grund auf so gestaltet, dass es eine möglichst großen Ban
 \gls{TF} ist seit dem Anfang auf Linux und MacOS lauffähig. Seit Version 0.12 wird außerdem Windows unterstützt~\cite{tf0.12}. Die reine Ausführung eines bereits trainierten Netzes (Inference) ist außerdem auch auf Android und iOS möglich~\cite{tensorflow2015-whitepaper}\cite{tensorflow2016-whitepaper}.
 
 \subsection{Hardware Unterstützung}
-Lernalgorithmen basieren oft auf aufwändigen Rechenoperationen, die zwar hoch parallelisierbar sind, meist jedoch auch große Abhängigkeiten beim Datenzugriff aufweisen. Ein Beispiel hierfür sind Matrix Multiplikationen. Mit dem Aufkommen von so genannten `"generall purpose GPUs'" die eine große Anzahl an Recheneinheiten und schnellen lokalen Speicher bieten, konnten ~\gls{NN} stark beschleunigt werden.
+Lernalgorithmen basieren oft auf aufwändigen Rechenoperationen, die zwar hoch parallelisierbar sind, meist jedoch auch große Abhängigkeiten beim Datenzugriff aufweisen. Ein Beispiel hierfür sind Matrix Multiplikationen. Mit dem Aufkommen von so genannten "`Generall Purpose GPUs"' die eine große Anzahl an Recheneinheiten und schnellen lokalen Speicher bieten, konnten \gls{NN} stark beschleunigt werden.
 
-~\{TF} bietet hier den Vorteil, dass es unabhängig von der vorhandenen Hardware eingesetzt werden kann. Es werden sowohl CPUs als auch eine Vielzahl von NVIDIA GPUs unterstützt. Andere GPUs werden im Moment leider noch nicht unterstützt. Für die Verwendung der NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version 8.0 	sowie cuDNN v6.0 installiert sein. 
-%-CPU
-%-GPU (nvidia mit CUDa support)
-%-TPU
-%-FPGA
+\gls{TF} bietet hier den Vorteil, dass es unabhängig von der vorhandenen Hardware eingesetzt werden kann. Es werden sowohl CPUs als auch eine Vielzahl von NVIDIA GPUs unterstützt. Im Moment können GPUs anderer Hersteller noch nicht genutzt werden, da gls{TF} die CUDA-API von NVIDIA nutzt. Diese "`CUDA Compute Capability"' muss von der Hardware auch mindestens in Version 3.0 unterstützt werden. Eine Liste mit allen unterstützen Karten kann auf der \href{https://developer.nvidia.com/cuda-gpus}{NVIDIA Homepage} gefunden werden~\cite{tfinstall}.
 
-In Tensorflow kann auch genau definiert werden, welche Schritte im Programmcode von welcher Recheneinheit ausgeführt werden sollen. 
+Neben diesen allgemein gehaltenen Recheneinheiten kann \gls{TF} auch spezielle Hardware für die Berechnungen nutzen. So gibt es von Google selbst sogenannte \glspl{TPU}, die eine enorme Beschleunigung von Inference ermöglichen und dabei vor allem wesentliche energieeffizienter sind, als CPUs oder auch GPUs~\cite{TPU}. Da es sich hierbei jedoch um proprietäre Hardware handelt, können diese \glspl{TPU} im Moment nur als Service in der Google Cloud genutzt werden~\cite{TPU2}. Außerdem kann der sogenannte "`Neural Compute Stick"' von Movidius (inzwischen Intel)~\cite{movidius} verwendet werden, der es auch auf leistungsschwacher Hardware wie zum Beispiel einem Raspberry Pi möglich macht, Inference von \gls{NN} durchzuführen.
+
+In Tensorflow kann genau definiert werden, welche Schritte im Programmcode von welcher Recheneinheit ausgeführt werden sollen. So wird in Zeile zwei von \autoref{lst:tf-dev} angegeben, dass die dritte GPU im System verwendet werden soll\footnote{\gls{TF} beginnt bei null zu zählen}~\cite{tf-dev}.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, label=lst:tf-dev, caption={Festlegung des Geräts, auf dem die Berechnung getätigt werden soll}]
+# Creates a graph.
+with tf.device('/device:GPU:2'):
+  a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+  b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+  c = tf.matmul(a, b)
+# Creates a session with log_device_placement set to True.
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+# Runs the op.
+print(sess.run(c))
+\end{lstlisting}
+\end{minipage}
+
+In den Zeilen drei und vier werden zwei konstante Arrays definiert und in Zeile fünf wird die durchzuführende Rechenoperation festgelegt. In Zeile sieben wird eine TensorFlow Session erstellt und mit "`sess.run"' in Zeile neun wird schließlich die Berechnung angestoßen.
+
 \subsection{Software Anforderungen}
+\Gls{TF} ist sowohl für Python 2.7 verfügbar, als auch für Python 3 ab Version 3.4~\cite{tfinstall}. Alternativ sind aber auch Docker Images verfügbar.
 
+Für die Verwendung von NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version 8.0 	sowie cuDNN v6.0 installiert werden~\cite{tfinstall}.
 
 \section{Softwarearchitektur von TensorFlow}
