@@ -127,22 +127,71 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 \end{figure}
 
 
-
+\vspace{50pt}
 \textbf{\textit{Verteilungen}}
+\vspace{10pt}
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{images/Kapitel_3/distribution.png}
-\end{center}
+Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse \dq tf.summary.histogram\grqq{} abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit.
 
+\begin{figure}[h!]
+	\centering
+	%\vspace{-35pt}
+	%\hspace{-1.0cm} 
+	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/distribution.png}\\
+	\vspace{10pt} 
+	\caption[Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung]{Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung}
+	\label{fig:verteilung}
+\end{figure}
 
-\textbf{\textit{Audio}}
+\vspace{40pt}
 
 \textbf{\textit{Projektor}}
 
-\textbf{\textit{Text}}
+Unter dem Reiter Projektor, welche mit der Klasse\newline
+\dq tf.contrib.tensorboard.plugins.projector.visualize\_embeddings\grqq{} abgespeichert werden, ermöglicht die höherdimensionale Visualisierung der Eingabedaten. Hierbei werden zwei wesentliche Darstellungen unterschieden.
+\vspace{10pt}
+
+\begin{itemize} 
+\item PCA (Prinicipal Component Analysis) \vspace{10pt}
+
+Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimensionalem Raum dargestellt werden können.  Hierbei werden bei der Hauptkomponentenanalyse (PCA) die Daten so auf eine zweidimensionale (bzw. dreidimensionaler) Ebene projiziert, mit der Erwartung, dass diese neue Darstellung eventuell vorhandenes Rauschen herausfiltert und versteckte Strukturen zum Vorschein bringt.   
+%http://www.statistics4u.info/fundstat_germ/cc_pca.html
+\begin{figure}[h!]
+	\centering
+	%\vspace{-35pt}
+	%\hspace{-1.0cm} 
+	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_pca.png}\\
+	\vspace{10pt} 
+	\caption[Visualisierung des PCA]{Visualisierung des PCA}
+	\label{fig:pca}
+\end{figure}
 
 
 
+\item T-SNE (t-distributed stochastic neighbor embedding) \vspace{10pt}
+
+Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensionale Daten in einen Raum von zwei oder drei Dimensionen zu projizieren. Hierbei wird jedes hochdimensionale Objekt durch einen zwei- oder dreidimensionalen Punkt modelliert, sodass ähnliche Objekte durch nahe gelegene Punkte und ungleiche Objekte durch entfernte Punkte modelliert werden.
+
+
+\begin{figure}[h!]
+	\centering
+	%\vspace{-35pt}
+	%\hspace{-1.0cm} 
+	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_t-sne.png}\\
+	\vspace{10pt} 
+	\caption[Visualisierung des T-SNE]{Visualisierung des T-SNE}
+	\label{fig:histogram}
+\end{figure}
+
+
+\end{itemize}
+
+\vspace{40pt}
+\textbf{\textit{Audio und Text}}
+
+Unter dem Reiter Audio können mit der Klasse \dq tf.summary.audio \grqq{} abspielbare Audio-Widgets eingebettet werden.\\
+
+Ebenso können unter dem Reiter Text mit der Klasse \dq tf.summary.text \grqq{} Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Listen und Tabellen werden unterstützt.
 
 
 
