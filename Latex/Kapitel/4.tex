@@ -4,7 +4,7 @@
 
 
 
-\section{Die Tooling Pipeline}
+%\section{Die Tooling Pipeline}
 
 
 
@@ -28,6 +28,12 @@ Validierungsdaten dienen der Festlegung der optimalen Struktur des Modells, insb
 Testdaten werden verwendet, um eine Bewertung eines endgültigen Modells zu ermöglichen, welche auf ungesehene Daten angewandt wurde.
 
 \end{itemize}\vspace{10pt}
+
+
+\textbf{Cross-Validation} \vspace{10pt}
+
+Die Unterteilung des Datensatzes in einen festen Trainingssatz und einen festen Testsatz kann problematisch sein, wenn der Testsatz zu klein ist. Dies impliziert statistische Unsicherheit im Bereich des geschätzten Testfehlers. Abhilfe schafft die k-fache Kreuzvalidierung (Cross-Validation), welche die Daten in k disjunkte Teilmengen unterteilt, auf denen k Tests durchgeführt werden, wobei jeweils k-1 Teilmengen für das Training und die verbliebene Teilmenge zum Testen verwendet wird. 
+
 %https://books.google.de/books?id=93djocO3yVgC&hl=de&source=gbs_navlinks_s
 %Proceedings. 22. Workshop Computational Intelligence, Dortmund, 6. - 7. Dezember 2012
 
