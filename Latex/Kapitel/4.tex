@@ -10,9 +10,26 @@
 
 \section{Vorgehensweise beim Trainingsprozess}
 
-\newpage
 
+Eines der entscheidenden Kriterien über die Qualität des Modells ist die Prognose der Zielgröße auf zuvor ungesehenen Daten. Die Genauigkeit auf den Daten, mit denen das Modell trainiert wurde, geben keine grundlegende Aussage über die zu erwartende Genauigkeit auf zukünftige Daten. Deshalb ist es essentiell wichtig ungenutzte Testdaten zur Beurteilung mit einzubeziehen. Häufig müssen Entscheidungen über Metaparameter wie Neuronenanzahl, Stärke der Regularisierung, Art des Kernels getroffen werden. Daher unterteilt man die Datensätze in Trainings-, Validierungs- und Testdaten. 
+\vspace{10pt}
 
+\begin{itemize} 
+\item \textbf{Training} \vspace{5pt}
+
+Trainingsdaten bilden die Grundlage für das überwachte Lernen. Hierbei werden durch eine Reihe von Beispielen Parameter wie die Gewichte der Verbindungen zwischen den Neuronen angepasst. Häufig besteht der Trainingsdatensatz aus Paaren von Eingangsvektoren und der dazugehörigen Antwortvektoren. \vspace{10pt}
+
+\item \textbf{Validierung} \vspace{5pt}
+
+Validierungsdaten dienen der Festlegung der optimalen Struktur des Modells, insbesondere zur Einstellung der optimalen Parameter des Lernalgorithmus wie die Lernrate oder die Anzahl der Trainingsepochen. Validierungsdatensätze werden auch für die Regularisierung von  \dq early stopping\grqq{} und bei der Zunahme des Fehlers im Validierungsdatensatz, da dies ein Zeichen für  \dq overfitting\grqq{} ist, angewandt. \vspace{10pt}
+
+\item \textbf{Testdaten} \vspace{5pt}
+
+Testdaten werden verwendet, um eine Bewertung eines endgültigen Modells zu ermöglichen, welche auf ungesehene Daten angewandt wurde.
+
+\end{itemize}\vspace{10pt}
+%https://books.google.de/books?id=93djocO3yVgC&hl=de&source=gbs_navlinks_s
+%Proceedings. 22. Workshop Computational Intelligence, Dortmund, 6. - 7. Dezember 2012
 
 \section{Die Visualisierung mit TensorBoard}
 
