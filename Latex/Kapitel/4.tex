@@ -1,11 +1,7 @@
 \chapter{Der Allgemeine Workflow in TensorFlow}
 
-
-
-
-
+Zu Beginn dieses Kapitels wird die Methodik der Aufteilung der Datensätze in Trainings-, Validierungs- und Testdaten erläutert, welches für die Beurteilung der Ergebnisse eines Modells unerlässlich ist. Anschließend erfolgt eine Einführung in das Visualisierungstool TensorBoard, mit dessen Hilfe sich die hier vorgestellten und noch weitere Vorgänge anschaulich abbilden lassen. Am Schluss werden noch die einzelnen Graphelemente näher betrachtet, wodurch sich umfangreiche Graphabbildungen erzeugen lassen. 
 %\section{Die Tooling Pipeline}
-
 
 
 \section{Vorgehensweise beim Trainingsprozess}
@@ -39,26 +35,42 @@ Die Unterteilung des Datensatzes in einen festen Trainingssatz und einen festen 
 
 \section{Die Visualisierung mit TensorBoard}
 
-TensorBoard ist eine in der Installation von TensorFlow enthaltene Webanwendung zur Visualisierung der Abläufe in einem neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur Verfügung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso können damit insbesondere komplexe Datenstrukturen zum besseren Verständnis anschaulich visualisiert werden.
+TensorBoard ist eine in TensorFlow enthaltene Webanwendung zur Visualisierung der Abläufe in einem neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur Verfügung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso können damit insbesondere komplexe Datenstrukturen zum besseren Verständnis anschaulich visualisiert werden. 
 
-Bevor mit TensorBoard gearbeitet werden kann, muss folgender Befehl \ref{formel1} in die Kommandozeile eingegeben werden:
+Bevor mit TensorBoard gearbeitet werden kann, muss folgender Befehl \ref{lst:tensorboard} in die Kommandozeile eingegeben werden:
 \\
 
-\begin{equation}
-\displaystyle tensorboard\quad--logdir=path/to/log\_directory
-\label{formel1}
-\end{equation}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=bash, label={lst:tensorboard}]
+C:\> tensorboard  --logdir=path/to/log_directory
 
-\vspace{0.4cm}
-wobei vorher im spezifizierten Log Ordner die gewünschten Event Daten mit der Klasse \textit{tf.summary.FileWriter('path/to/log-directory')} abgespeichert werden müssen. Nachdem TensorBoard gestart wurde, navigiert man mit dem Browser zu folgender Seite:
+\end{lstlisting}
+\end{minipage}
 
+\vspace{0.2cm}
+wobei vorher im spezifizierten Log Ordner die gewünschten Event Daten mit der Klasse
+\\
 
-\begin{equation}
-\displaystyle http://localhost:6006
-\label{formel2}
-\end{equation}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, label={lst:FileWriter}]
+tf.summary.FileWriter('path/to/log_directory')
 
-Falls keine Fehlermeldungen aufgetreten sind, sollte folgender Bildschirminhalt angezeigt werden:
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
+
+abgespeichert werden müssen. Nachdem TensorBoard gestart wurde, navigiert man mit dem Browser zu folgender Seite:
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, label={lst:FileWriter}]
+http://localhost:6006
+
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
+
+Falls keine Fehlermeldungen aufgetreten sind, sollte folgender Bildschirminhalt Abbildung \ref{fig:tensorboard_start} angezeigt werden. Um die Visualisierungen in den einzelnen Reiter zu erhalten, müssen diese vorher im Programm mit speziellen TensorFlow Klassen abgespeichert werden. In dem nachfolgenden Kapitel werden die einzelnen Reiter und der dazugehörigen Klasse vorgestellt. 
 \\[1ex]
 
 \begin{figure}[h!]
@@ -73,11 +85,25 @@ Falls keine Fehlermeldungen aufgetreten sind, sollte folgender Bildschirminhalt 
 
 
 
-\subsection{Die einzelnen Visualisierungsmöglichkeiten im Detail}
 
-\textbf{\textit{Skalare}} 
-\vspace{10pt}\\
-Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können.
+
+\section{Die einzelnen Visualisierungsmöglichkeiten im Detail}
+
+\subsection{Skalare}
+%\textbf{\textit{Skalare}} 
+\vspace{10pt}
+Unter dem Reiter Skalare, welche mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.scalar(name, tensor, collections=None, family=None)
+\end{lstlisting}
+\end{minipage}
+
+\vspace{0.2cm}
+
+abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können.
 
 \begin{figure}[h!]
 	\centering
@@ -90,16 +116,31 @@ Unter dem Reiter Skalare, welche mit der Klasse \dq tf.summary.scalar\grqq{}  ab
 \end{figure}
 
 
-\textbf{\textit{Bilder}}
-\vspace{30pt}
 
+
+
+\subsection{Bilder}
+%\textbf{\textit{Bilder}}
+%\vspace{30pt}
+
+Innerhalb des Reiters Bilder, welche mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.image(name, tensor, max_outputs=3, collections=None, family=None)
+\end{lstlisting}
+\end{minipage}
+
+
+\vspace{1.4cm}
 \begin{wrapfigure}{r}{6cm}
 	\vspace{-45pt}
 	\includegraphics[width=6cm]{images/Kapitel_3/images.png}
 	\caption{Bild des Testschrittes 490}
 \end{wrapfigure}
 
-Innerhalb des Reiters Bilder, welche mit der Klasse \dq tf.summary.image\grqq{} abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
+abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
 Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört.
 \vspace{50pt}
 \newpage
@@ -121,24 +162,45 @@ Innerhalb des Reiters Bilder, welche mit der Klasse \dq tf.summary.image\grqq{} 
 \end{minipage}
 \end{figure}
 
-\textbf{\textit{Graphen}}
-\vspace{10pt}\\
+
+
+\subsection{Graphen}
+%\textbf{\textit{Graphen}}
+\vspace{10pt}
 Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Um einen Graphen in Tensorboard zu erhalten, müssen im Programm die gewünschten Operationen als Name scope erstellt werden. Mit nachfolgendem Befehl \ref{formel3} erhält man einen 'cross\_entropy' Name scope: 
+\\
 
-
-\begin{equation}
-\displaystyle with \quad tf.name\_scope('cross\_entropy'):
-\label{formel3}
-\end{equation}
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+with tf.name_scope('cross_entropy'):
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
 
 Der Name scope \textit{cross\_entropy} Abbildung \ref{fig:name_scope_cross_entropy} kann natürlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhält man eine übersichtliche Visualisierung komplexer TensorFlow Modelle. 
 
+
+
+
+
+
+\subsection{Histogramme}
+%\textbf{\textit{Histogramme}}
 \vspace{10pt}
-\textbf{\textit{Histogramme}}
-\vspace{10pt}\\
-Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grqq{} abgespeichert werden, wird die statistische Verteilung eines Tensors über der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert.
+Unter dem Reiter Histogramme, welche mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.histogram(name, values, collections=None, familiy=None)
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
 
 
+abgespeichert werden, wird die statistische Verteilung eines Tensors über der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert.
+
+\vspace{0.6cm}
 \begin{figure}[h!]
 	\centering
 	%\vspace{-35pt}
@@ -150,11 +212,25 @@ Unter dem Reiter Histogramme, welche mit der Klasse \dq tf.summary.histogram\grq
 \end{figure}
 
 
-\vspace{50pt}
-\textbf{\textit{Verteilungen}}
+
+
+
+
+\subsection{Verteilungen}
+%\textbf{\textit{Verteilungen}}
 \vspace{10pt}
 
-Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse \dq tf.summary.histogram\grqq{} abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit.
+Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.histogram(name, values, collections=None, familiy=None)
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
+
+abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit.
 
 \begin{figure}[h!]
 	\centering
@@ -166,12 +242,42 @@ Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse \dq tf.summary.hi
 	\label{fig:verteilung}
 \end{figure}
 
-\vspace{40pt}
+%\vspace{0.3cm}
 
-\textbf{\textit{Projektor}}
 
-Unter dem Reiter Projektor, welche mit der Klasse\newline
-\dq tf.contrib.tensorboard.plugins.projector.visualize\_embeddings\grqq{} abgespeichert werden, ermöglicht die höherdimensionale Visualisierung der Eingabedaten. Hierbei werden zwei wesentliche Darstellungen unterschieden.
+
+\subsection{Projektor}
+
+%\textbf{\textit{Projektor}}
+
+Die Auswahl des Reiters Projektors ermöglicht die höherdimensionale Visualisierung der Eingabedaten. Nachfolgend eine mögliche Konfiguration des Projektors:
+\vspace{0.1cm}
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}, caption={Konfiguration eines Projektors in TensorFlow}]
+from tensorflow.contrib.tensorboard.plugins import projector
+
+# Use the same LOG_DIR where you stored your checkpoint.
+summary_writer = tf.train.SummaryWriter(LOG_DIR)
+
+# Format: tensorflow/contrib/tensorboard/plugins/projector/projector_config.proto
+config = projector.ProjectorConfig()
+
+# You can add multiple embeddings. Here we add only one.
+embedding = config.embeddings.add()
+embedding.tensor_name = embedding_var.name
+
+# Link this tensor to its metadata file (e.g. labels).
+embedding.metadata_path = os.path.join(LOG_DIR, 'metadata.tsv')
+
+# Saves a configuration file that TensorBoard will read during startup.
+projector.visualize_embeddings(summary_writer, config)
+\end{lstlisting}
+\end{minipage}
+\vspace{0.3cm}
+
+Hierbei werden zwei wesentliche Darstellungen unterschieden.
 \vspace{10pt}
 
 \begin{itemize} 
@@ -206,19 +312,42 @@ Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensio
 	\label{fig:histogram}
 \end{figure}
 
-
 \end{itemize}
 
-\vspace{40pt}
-\textbf{\textit{Audio und Text}}
 
-Unter dem Reiter Audio können mit der Klasse \dq tf.summary.audio \grqq{} abspielbare Audio-Widgets eingebettet werden.\\
+\subsection{Audio und Text}
 
-Ebenso können unter dem Reiter Text mit der Klasse \dq tf.summary.text \grqq{} Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Listen und Tabellen werden unterstützt.
+Unter dem Reiter Audio können mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.audio(name, tensor, sample_rate, max_outputs=3, collections=None, family=None)
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
+
+abspielbare Audio-Widgets eingebettet werden.\\
+
+Ebenso können unter dem Reiter Text mit der Klasse
+\\
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting} [label={lst:scalar}]
+tf.summary.text(name, tensor, collections=None)
+\end{lstlisting}
+\end{minipage}
+\vspace{0.2cm}
+
+Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Listen und Tabellen werden unterstützt.
 
 
 
-\subsection{Die Graphelemente im Datenfluss}
+
+
+\newpage
+
+\section{Die Graphelemente im Datenfluss}
 
  Dafür wurden zahlreiche unterschiedliche Elemente definiert, welche nachfolgend kurz erläutert werden. 
 \\
