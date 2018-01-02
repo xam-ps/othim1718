@@ -62,3 +62,20 @@ In den Zeilen drei und vier werden zwei konstante Arrays definiert und in Zeile 
 Für die Verwendung von NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version 8.0 	sowie cuDNN v6.0 installiert werden~\cite{tfinstall}.
 
 \section{Softwarearchitektur von TensorFlow}
+\Gls{TF} wurde als erweiterbare, plattformübergreifende Bibliothek konzipiert. \autoref{fig:architektur} zeigt, wie dies durch Modularisierung erreicht wurde. Dabei wird alles oberhalb der C-API als "`user-level"' bezeichnet und alles darunter als "`core library"'~\cite{tensorflow2016-whitepaper}.
+
+\begin{figure}[htb!]
+	\centering
+	 \includegraphics[width=.5\textwidth]{images/architektur.pdf}\\
+	\vspace{10pt} 
+	\caption{Die Architektur von \gls{TF}~\cite{tensorflow2016-whitepaper}}
+	\label{fig:architektur}
+\end{figure}
+
+Die meisten Nutzer werden \gls{TF} über die bereitgestellten Client-Schnittstellen nutzen. Diese sind für die beiden Sprachen "`Python"' und "`C++"' vorhanden. Beide nutzen dabei eine C API, die den Zugriff auf die core-library von \gls{TF} ermöglicht. Diese wiederum wurden in C++ implementiert um Portabilität und Leistungsfähigkeit zu gewährleisten. Im user-level befinden sich außerdem noch Training- und Inference-Bibliotheken, in denen häufig genutzte Funktionen wie Backpropagation oder das Gradientenabstiegsverfahren aus
+%%TODO ref!!
+Kapitel 2.6 bereits implementiert wurden.
+
+Der Kern von \gls{TF} besteht aus mehreren Komponenten. Der sogenannte "`distributed master"' teilt den Berechnungsgraphen in mehrere Sub-Graphen auf, die dann auf den einzelnen Recheneinheiten vom "`dataflow executor"' ausgeführt werden. Des weiteren sind mehr als 200 Standard-Operationen für zum Beispiel Array Manipulation oder Zustandsmanagement enthalten. Dabei wurde an vielen Stellen auf bereits bestehende Open-Source-Software aufgebaut, die eine effiziente Parallelberechnung auf Mehrkern-CPUs und GPUs sicherstellt.
+
+Im "`Networking layer"' wurden erweiterte Netzwerkprotokolle wie "`gRPC over TCP"' oder "`RDMA over Converged Ethernet"' integriert, die eine schnelle Kommunikation zwischen entfernten Rechnern sicherstellen sollen. Doch auch innerhalb eines Rechners wurden zusätzliche Funktionen implementiert, die einen schnellen Datenaustausch von zum Beispiel zwei GPUs ermöglichen sollen.
