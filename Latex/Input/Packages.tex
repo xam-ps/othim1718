@@ -33,6 +33,18 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{listings} % schöne Quellcode-Listings
+
+% ein paar Einstellungen für akzeptable Listings
+\definecolor{iBlue}{cmyk}{0.99,0.50,0.0,0.0}
+\newcommand{\important}[1]{\textcolor{iBlue}{#1}}
+\lstset{basicstyle=\ttfamily, columns=[l]flexible, mathescape=true, showstringspaces=false, numbers=left, numberstyle=\tiny}
+\lstset{language=python} % und nur schöne Programmiersprachen ;-)
+% und eine eigene Umgebung für Listings
+\usepackage{float}
+\newfloat{listing}{htbp}{scl}[chapter]
+\floatname{listing}{Listing}
+
 \usepackage{setspace}
 \usepackage{nomencl}
 % the following is useful when we have the old nomencl.sty package
