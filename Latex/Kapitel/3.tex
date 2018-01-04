@@ -64,13 +64,13 @@ Für die Verwendung von NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version
 \section{Softwarearchitektur von TensorFlow}
 \Gls{TF} wurde als erweiterbare, plattformübergreifende Bibliothek konzipiert. \autoref{fig:architektur} zeigt, wie dies durch Modularisierung erreicht wurde. Dabei wird alles oberhalb der C-API als "`user-level"' bezeichnet und alles darunter als "`core library"'~\cite{tensorflow2016-whitepaper}.
 
-\begin{figure}[htb!]
-	\centering
-	 \includegraphics[width=.5\textwidth]{images/architektur.pdf}\\
-	\vspace{10pt} 
-	\caption{Die Architektur von \gls{TF}~\cite{tensorflow2016-whitepaper}}
-	\label{fig:architektur}
-\end{figure}
+%\begin{figure}[htb!]
+%	\centering
+%	 \includegraphics[width=.5\textwidth]{images/architektur.pdf}\\
+%	\vspace{10pt} 
+%	\caption{Die Architektur von \gls{TF}~\cite{tensorflow2016-whitepaper}}
+%	\label{fig:architektur}
+%\end{figure}
 
 Die meisten Nutzer werden \gls{TF} über die bereitgestellten Client-Schnittstellen nutzen. Diese sind für die beiden Sprachen "`Python"' und "`C++"' vorhanden. Beide nutzen dabei eine C API, die den Zugriff auf die core-library von \gls{TF} ermöglicht. Diese wiederum wurden in C++ implementiert um Portabilität und Leistungsfähigkeit zu gewährleisten. Im user-level befinden sich außerdem noch Training- und Inference-Bibliotheken, in denen häufig genutzte Funktionen wie Backpropagation oder das Gradientenabstiegsverfahren aus
 %%TODO ref!!
