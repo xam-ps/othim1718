@@ -4,12 +4,8 @@
 %http://www.cs.virginia.edu/~gurumurthi/papers/DATE14.pdf
 Besonders umfangreich unterstützt das Framework Arbeiten im Bereich der (tiefen) \gls{NN}. Schnittstellen zu den Hochsprachen Python und C++ sollen den Einstieg erleichtern und sicherstellen, dass die verfügbare Hardware immer bestmöglich genutzt werden kann. Mit dem sogenannte Tensorboard bringt \gls{TF} außerdem eine Weboberfläche mit, die ohne großen Aufwand für den Entwickler viele relevante Informationen ausgibt und teilweise auch grafisch aufbereitet~\cite{tensorflow2016-whitepaper}.
 
-\section{Eine Einführung zu TensorFlow}
-
-%evtl. Vergleich mit anderen Frameworks (CAFFE, Torch, ...)
-
 \section{Die Entwicklung von Tensorflow}
-Bereits 2011 begann das Google Brain Projekt damit, den Nutzen von sehr großen tiefen \gls{NN} zu erforschen. Einen Teil davon bildete der Aufbau von "`DistBelief"', ein System, das Training und Vorhersage im Bereich des \gls{ML} verteilt und skalierbar ermöglichte. Neben einigen Forschungsprojekten wurde DistBelief auch bereits produktive in einigen Google Produkten, wie Google Search, Google Tanslate oder Youtube eingesetzt~\cite{tensorflow2016-whitepaper}. 2012 wurde von Google Mitarbeitern ein Paper veröffentlicht, das über die Nutzung von zentausenden CPU-Kernen  durch DistBelief berichtete, wodurch auch sehr große Modelle in absehbarer Zeit trainiert werden konnten~\cite{NIPS2012}. Auf Basis der Erfahrungen beim Einsatz von DistBelief arbeitete Google dann am System der zweiten Generation für groß-skalierende \gls{ML} Modelle und veröffentlichte im November 2015 \gls{TF}~\cite{tf-opensource}. \gls{TF} ist seit dem auf github unter der Apache License 2.0 verfügbar~\cite{tf-git}.  Mit der Veröffentlichung von Version 1.0 im Februar 2017 wurde schließlich eine verlässliche API eingeführt, die auch in Zukunft sicher stellen soll, dass der geschriebene Code mit neuen Versionen von \gls{TF} kompatibel ist~\cite{tf1}. Des weiteren wurde die Leistung weiter verbessert und die Einführung eines neuen Moduls ermöglicht seither die Nutzung von \gls{TF} mit Keras\footnote{Keras ist eine Deep Learning Library, die auf \gls{TF}, CNTK oder Theano aufsetzt.}.
+Bereits 2011 begann das Google Brain Projekt damit, den Nutzen von sehr großen tiefen \gls{NN} zu erforschen. Einen Teil davon bildete der Aufbau von "`DistBelief"', ein System, das Training und Vorhersage im Bereich des \gls{ML} verteilt und skalierbar ermöglichte. Neben einigen Forschungsprojekten wurde DistBelief auch bereits produktive in einigen Google Produkten, wie Google Search, Google Tanslate oder Youtube eingesetzt~\cite{tensorflow2016-whitepaper}. 2012 wurde von Google Mitarbeitern ein Paper veröffentlicht, das über die Nutzung von zentausenden CPU-Kernen  durch DistBelief berichtete, wodurch auch sehr große Modelle in absehbarer Zeit trainiert werden konnten~\cite{NIPS2012}. Auf Basis der Erfahrungen beim Einsatz von DistBelief arbeitete Google dann am System der zweiten Generation für groß-skalierende \gls{ML} Modelle und veröffentlichte im November 2015 \gls{TF}~\cite{tf-opensource}. \gls{TF} ist seit dem auf GitHub unter der Apache License 2.0 verfügbar~\cite{tf-git}.  Mit der Veröffentlichung von Version 1.0 im Februar 2017 wurde schließlich eine verlässliche API eingeführt, die auch in Zukunft sicher stellen soll, dass der geschriebene Code mit neuen Versionen von \gls{TF} kompatibel ist~\cite{tf1}. Des weiteren wurde die Leistung weiter verbessert und die Einführung eines neuen Moduls ermöglicht seither die Nutzung von \gls{TF} mit Keras\footnote{Keras ist eine Deep Learning Library, die auf \gls{TF}, CNTK oder Theano aufsetzt.}.
 
 \section{Angesprochene Zielgruppe}
 Im Gegensatz zu DistBelief, welches viele Forschungsgebiete zu unflexibel war, ist \gls{TF} sowohl für die Forschung als auch für den Produktiven Einsatz in großen Softwareprojekten geeignet. \autoref{fig:DBvsTF} wurde beim TensorFlow Dev Summit 2017~\cite{tf-sum17-keynote} gezeigt und veranschaulicht die Abdeckung der Zielgruppen beider Systeme.
@@ -23,6 +19,28 @@ Im Gegensatz zu DistBelief, welches viele Forschungsgebiete zu unflexibel war, i
 \end{figure}
 
 \gls{TF} bietet zum einen genug Flexibilität für Forschungsprojekte, um mit neuen Modellen zu experimentieren, ist gleichzeitig aber hochperformant und robust, was beim Einsatz in Produktivsoftware wichtig ist. Modelle können somit also oft aus der Forschung direkt in Produktivumgebungen übernommen werden~\cite{tensorflow2016-whitepaper}.
+
+\section{Datenflussgraphen in Tensorflow}
+Einer der Hauptbestandteile für die Durchführung von Berechnungen mit \gls{TF} sind Datenflussgraphen, im Original "`dataflow graph"' genannt, welcher aus einer bestimmten Anzahl an Knoten besteht. Dieser wird im Quellcode meist zu Beginn über eine der verfügbaren Client-Schnittstellen (Python oder C++) definiert. \autoref{lst:tf-graph} zeigt den Beispiel-Code für die Definition eines sehr einfachen Datenflussgraphes, bei dem zunächst in Zeile zwei ein Vektor b von der Größe 100 mit Nullen initialisiert wird. Anschließend wird in Zeile drei eine Matrix W mit den Dimensionen 625x100 mit Zufallswerten zwischen minus Eins und Eins belegt und in Zeile vier ein variabler Platzhalter x für die spätere Eingabe definiert. Der eigentliche Graph entsteht in Zeile fünf: Zunächst wird der Input x mit der Matrix W multipliziert und anschließend der Vektor b aufaddiert. Das Ergebnis wird anschließend einer ReLU-Funktion (\autoref{sub:relu}) übergeben. Diese Verkettung kann beliebig lange weitergeführt werden, was im Code in Zeile sechs und in der grafischen Darstellung in \autoref{fig:dataflow} durch den Platzhalter symbolisiert wird.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, label=lst:tf-graph, caption={Code-Beispiel zur Definition eines Graphen}]
+import tensorflow as tf
+b = tf.Variable(tf.zeros([100]))
+W = tf.Variable(tf.random_uniform([625,100],-1,1))
+x = tf.placeholder(name="x")
+relu = tf.nn.relu(tf.matmul(W, x) + b)
+C = [...]
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[htb!]
+	\centering
+	 \includegraphics[width=.3\textwidth]{images/graph.pdf}\\
+	\vspace{10pt} 
+	\caption{Datenflussgraph zu \autoref{lst:tf-graph}}
+	\label{fig:dataflow}
+\end{figure}
 
 
 \section{Hard- und Software Anforderungen}
@@ -57,11 +75,11 @@ print(sess.run(c))
 In den Zeilen drei und vier werden zwei konstante Arrays definiert und in Zeile fünf wird die durchzuführende Rechenoperation festgelegt. In Zeile sieben wird eine TensorFlow Session erstellt und mit "`sess.run"' in Zeile neun wird schließlich die Berechnung angestoßen.
 
 \subsection{Software Anforderungen}
-\Gls{TF} ist sowohl für Python 2.7 verfügbar, als auch für Python 3 ab Version 3.4~\cite{tfinstall}. Alternativ sind aber auch Docker Images verfügbar.
+\Gls{TF} ist sowohl unter Python 2.7 als auch unter Python 3 ab Version 3.4~\cite{tfinstall} lauffähig. Alternativ sind aber auch Docker Images verfügbar.
 
 Für die Verwendung von NVIDIA GPUs muss außerdem das CUDA® Toolkit in Version 8.0 	sowie cuDNN v6.0 installiert werden~\cite{tfinstall}.
 
-\section{Softwarearchitektur von TensorFlow}
+\section{Architektur von TensorFlow}
 \Gls{TF} wurde als erweiterbare, plattformübergreifende Bibliothek konzipiert. \autoref{fig:architektur} zeigt, wie dies durch Modularisierung erreicht wurde. Dabei wird alles oberhalb der C-API als "`user-level"' bezeichnet und alles darunter als "`core library"'~\cite{tensorflow2016-whitepaper}.
 
 \begin{figure}[htb!]

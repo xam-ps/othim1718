@@ -98,7 +98,7 @@ Um den Output des Neuronalen Netzes zu berechnen f\"uhrt man den Befehl \lstinli
 Auf diese Weise bekommt man einen weiteren Tensor der f\"ur jedes versteckte Neuron einen Wert hat. Auf diese Werte wendet man nun eine Aktivierungsfunktion an, das Ergebnis nennt man \textbf{Aktivit\"at}\footnote{\cite{Ertel2013} S.247} der versteckten Schicht. Dieses Verfahren kann man nun f\"ur beliebig viele versteckte Schichten wiederholen, dabei nutzt man die Aktivit\"at und die Gewichtsmatrix f\"ur die zweite versteckte Schicht um eine Matrix Multiplikation durchzuf\"uhren und die Aktivit\"at der n\"achsten Schicht zu bekommen.
 \section{Aktivierungsfunktionen}
 Aktivierungsfunktionen werden verwendet um den Wertebereich den die Neuronen annehmen k\"onnen einzugrenzen. So liegen manche Aktivierungsfunktionen nur zwischen den Werten $-1$ und $1$ oder bilden alle negative Werte auf Null ab. Exemplarisch werden 3 der beliebtesten Aktivierungsfunktionen beschrieben.
-\subsection{Rectified linear unit function}
+\subsection{Rectified linear unit function} \label{sub:relu}
 Eine beliebte M\"oglichkeit ist die Rectified linear unit function, kurz relu.\\
 F\"ur relu gilt in der parametrisierten Form\footnote{\cite{Goodfellow}S.174 }
 \begin{align*}
