@@ -133,12 +133,13 @@ tf.summary.image(name, tensor, max_outputs=3, collections=None, family=None)
 \end{minipage}
 
 
-\vspace{1.4cm}
-\begin{wrapfigure}{r}{6cm}
-	\vspace{-45pt}
-	\includegraphics[width=6cm]{images/Kapitel_3/images.png}
+\begin{figure}[htb!]
+	\centering
+     \includegraphics[width=6cm]{images/Kapitel_3/images.png}
+	\vspace{10pt} 
 	\caption{Bild des Testschrittes 490}
-\end{wrapfigure}
+	\label{fig:DBvsTF}
+\end{figure}
 
 abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
 Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört. \cite{tensorboard.2017}
