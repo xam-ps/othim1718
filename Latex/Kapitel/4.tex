@@ -7,7 +7,7 @@ Zu Beginn dieses Kapitels wird die Methodik der Aufteilung der Datensätze in Tr
 \section{Vorgehensweise beim Trainingsprozess}
 
 
-Eines der entscheidenden Kriterien über die Qualität des Modells ist die Prognose der Zielgröße auf zuvor ungesehenen Daten. Die Genauigkeit auf den Daten, mit denen das Modell trainiert wurde, geben keine grundlegende Aussage über die zu erwartende Genauigkeit auf zukünftige Daten. Deshalb ist es essentiell wichtig ungenutzte Testdaten zur Beurteilung mit einzubeziehen. Häufig müssen Entscheidungen über Metaparameter wie Neuronenanzahl, Stärke der Regularisierung, Art des Kernels getroffen werden. Daher unterteilt man die Datensätze in Trainings-, Validierungs- und Testdaten.  \cite{hoffmann2014proceedings}
+Eines der entscheidenden Kriterien über die Qualität des Modells ist die Prognose der Zielgröße auf zuvor ungesehenen Daten. Die Genauigkeit auf den Daten, mit denen das Modell trainiert wurde, geben keine grundlegende Aussage über die zu erwartende Genauigkeit auf zukünftige Daten. Deshalb ist es essentiell wichtig ungenutzte Testdaten zur Beurteilung mit einzubeziehen. Häufig müssen Entscheidungen über Metaparameter wie Neuronenanzahl, Stärke der Regularisierung, Art des Kernels getroffen werden. Daher unterteilt man die Datensätze in Trainings-, Validierungs- und Testdaten \cite{hoffmann2014proceedings}.
 \vspace{10pt}
 
 \begin{itemize} 
@@ -28,7 +28,7 @@ Testdaten werden verwendet, um eine Bewertung eines endgültigen Modells zu erm�
 
 \textbf{Cross-Validation} \vspace{10pt}
 
-Die Unterteilung des Datensatzes in einen festen Trainingssatz und einen festen Testsatz kann problematisch sein, wenn der Testsatz zu klein ist. Dies impliziert statistische Unsicherheit im Bereich des geschätzten Testfehlers. Abhilfe schafft die k-fache Kreuzvalidierung (Cross-Validation), welche die Daten in k disjunkte Teilmengen unterteilt, auf denen k Tests durchgeführt werden, wobei jeweils k-1 Teilmengen für das Training und die verbliebene Teilmenge zum Testen verwendet wird. \cite{hoffmann2014proceedings}
+Die Unterteilung des Datensatzes in einen festen Trainingssatz und einen festen Testsatz kann problematisch sein, wenn der Testsatz zu klein ist. Dies impliziert statistische Unsicherheit im Bereich des geschätzten Testfehlers. Abhilfe schafft die k-fache Kreuzvalidierung (Cross-Validation), welche die Daten in k disjunkte Teilmengen unterteilt, auf denen k Tests durchgeführt werden, wobei jeweils k-1 Teilmengen für das Training und die verbliebene Teilmenge zum Testen verwendet wird \cite{hoffmann2014proceedings}.
 
 %https://books.google.de/books?id=93djocO3yVgC&hl=de&source=gbs_navlinks_s
 %Proceedings. 22. Workshop Computational Intelligence, Dortmund, 6. - 7. Dezember 2012
@@ -103,7 +103,7 @@ tf.summary.scalar(name, tensor, collections=None, family=None)
 
 \vspace{0.2cm}
 
-abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können. \cite{tensorboard.2017}
+abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
 
 \begin{figure}[h!]
 	\centering
@@ -142,7 +142,7 @@ tf.summary.image(name, tensor, max_outputs=3, collections=None, family=None)
 \end{figure}
 
 abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
-Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört. \cite{tensorboard.2017}
+Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört \cite{tensorboard.2017}.
 \vspace{50pt}
 \newpage
 
@@ -182,7 +182,7 @@ tf.summary.scalar('cross_entropy', cross_entropy)
 \end{minipage}
 \vspace{0.2cm}
 
-Der Name scope \textit{cross\_entropy} in Abbildung \ref{fig:name_scope_cross_entropy} kann natürlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhält man eine übersichtliche Visualisierung komplexer TensorFlow Modelle. \cite{tensorboard.2017}
+Der Name scope \textit{cross\_entropy} in Abbildung \ref{fig:name_scope_cross_entropy} kann natürlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhält man eine übersichtliche Visualisierung komplexer TensorFlow Modelle \cite{tensorboard.2017}.
 
 
 
@@ -203,7 +203,7 @@ tf.summary.histogram(name, values, collections=None, familiy=None)
 \vspace{0.2cm}
 
 
-abgespeichert werden, wird die statistische Verteilung eines Tensors über der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert. \cite{tensorboard.2017}
+abgespeichert werden, wird die statistische Verteilung eines Tensors über der Zeit dargestellt. Im Histogramm sind zeitliche \dq Slices\grqq{} der Daten visualisiert, wobei jeder einzelne Slice ein Histogramm des Tensors in einem einzelnen Schritt darstellt. In Abbildung \ref{fig:histogram} ist ein einzelner Slice schwarz markiert \cite{tensorboard.2017}.
 
 \vspace{0.6cm}
 \begin{figure}[h!]
@@ -235,7 +235,7 @@ tf.summary.histogram(name, values, collections=None, familiy=None)
 \end{minipage}
 \vspace{0.2cm}
 
-abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit. \cite{tensorboard.2017}
+abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit \cite{tensorboard.2017}.
 
 \begin{figure}[h!]
 	\centering
@@ -288,7 +288,7 @@ Hierbei werden zwei wesentliche Darstellungen unterschieden.
 \begin{itemize} 
 \item PCA (Prinicipal Component Analysis) \vspace{10pt}
 
-Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimensionalem Raum dargestellt werden können.  Hierbei werden bei der Hauptkomponentenanalyse (PCA) die Daten so auf eine zweidimensionale (bzw. dreidimensionaler) Ebene projiziert, mit der Erwartung, dass diese neue Darstellung eventuell vorhandenes Rauschen herausfiltert und versteckte Strukturen zum Vorschein bringt. \cite{pca}
+Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimensionalem Raum dargestellt werden können.  Hierbei werden bei der Hauptkomponentenanalyse (PCA) die Daten so auf eine zweidimensionale (bzw. dreidimensionaler) Ebene projiziert, mit der Erwartung, dass diese neue Darstellung eventuell vorhandenes Rauschen herausfiltert und versteckte Strukturen zum Vorschein bringt \cite{pca}.
 %http://www.statistics4u.info/fundstat_germ/cc_pca.html
 \begin{figure}[h!]
 	\centering
@@ -304,7 +304,7 @@ Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimen
 
 \item T-SNE (T-distributed Stochastic Neighbor Embedding) \vspace{10pt}
 
-Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensionale Daten in einen Raum von zwei oder drei Dimensionen zu projizieren. Hierbei wird jedes hochdimensionale Objekt durch einen zwei- oder dreidimensionalen Punkt modelliert, sodass ähnliche Objekte durch nahe gelegene Punkte und ungleiche Objekte durch entfernte Punkte modelliert werden. \cite{t-sne}
+Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensionale Daten in einen Raum von zwei oder drei Dimensionen zu projizieren. Hierbei wird jedes hochdimensionale Objekt durch einen zwei- oder dreidimensionalen Punkt modelliert, sodass ähnliche Objekte durch nahe gelegene Punkte und ungleiche Objekte durch entfernte Punkte modelliert werden \cite{t-sne}.
 
 
 \begin{figure}[h!]
@@ -344,7 +344,7 @@ tf.summary.text(name, tensor, collections=None)
 \end{minipage}
 \vspace{0.2cm}
 
-Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Listen und Tabellen werden unterstützt. \cite{tensorboard.2017}
+Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Listen und Tabellen werden unterstützt \cite{tensorboard.2017}.
 
 
 
@@ -354,7 +354,7 @@ Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Li
 
 \section{Die Graphelemente im Datenfluss}
 
- Dafür wurden zahlreiche unterschiedliche Elemente definiert, welche nachfolgend kurz erläutert werden. \cite{graph_viz}
+ Dafür wurden zahlreiche unterschiedliche Elemente definiert, welche nachfolgend kurz erläutert werden \cite{graph_viz}.
 \\
 
 \begin{tabular}{ p{4cm}p{10.8cm} ll }
