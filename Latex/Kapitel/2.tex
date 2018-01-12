@@ -1,14 +1,14 @@
-\chapter{Neuronale Netze in TensorFlow}
-Neuronale Netze sind das am h\"aufigsten benutzte Werkzeug in Tensorflow. Im Folgenden werden die Grundlagen f\"ur Neuronale Netze vorgestellt, sowie deren Umsetzung in Tensorflow. Dabei wird mit \cite{cookbook}
+﻿\chapter{Neuronale Netze in TensorFlow}
+Neuronale Netze sind das am h\"aufigsten benutzte Werkzeug in \gls{TF}. Im Folgenden werden die Grundlagen f\"ur Neuronale Netze vorgestellt, sowie deren Umsetzung in \gls{TF}. Dabei wird mit \cite{cookbook}
 \vspace{0.3cm}
 \begin{lstlisting}
 import tensorflow as tf
-\end{lstlisting} Tensorflow in Python importiert. Tensorflow-Befehle können dann über das Kürzel \lstinline$tf$ aufgerufen werden. Diverse Codeauschnitte in diesem und allen nachfolgenden Kapiteln sind Implementierungen in der Programmiersprache Python.
+\end{lstlisting} \gls{TF} in Python importiert. \gls{TF}-Befehle können dann über das Kürzel \lstinline$tf$ aufgerufen werden. Diverse Codeauschnitte in diesem und allen nachfolgenden Kapiteln sind Implementierungen in der Programmiersprache Python.
 
 
 
 \section{Feedforward Netzwerk}
-Die h\"aufigste in Tensorflow implementierte Version Neuronaler Netze ist das feedforward network oder ein vorwärtsgerichtetes Netzwerk. Der Name stammt von den Informationen, die innerhalb des Netzes immer weiter nach $"$vorne$"$ wandern, von den Eingabeneuronen über die versteckten Schichten zu den Ausgabeneuronen \cite{Goodfellow}. Es gibt keine Rückkopplungen, wie es zum Beispiel beim Hopfieldnetz der Fall ist \cite{Ertel2013}. Sie werden in der Regel f\"ur Deep Learning verwendet \cite{Goodfellow}. Ein feedforward Netz besteht aus einer Eingabeschicht, einer Ausgabeschicht und n versteckten Schichten dazwischen.
+Die h\"aufigste in \gls{TF} implementierte Version Neuronaler Netze ist das Feedforward Network oder ein vorwärtsgerichtetes Netzwerk. Der Name stammt von den Informationen, die innerhalb des Netzes immer weiter nach $"$vorne$"$ wandern, von den Eingabeneuronen über die versteckten Schichten zu den Ausgabeneuronen \cite{Goodfellow}. Es gibt keine Rückkopplungen, wie es zum Beispiel beim Hopfieldnetz der Fall ist \cite{Ertel2013}. Sie werden in der Regel f\"ur Deep Learning verwendet \cite{Goodfellow}. Ein Feedforward Netz besteht aus einer Eingabeschicht, einer Ausgabeschicht und n versteckten Schichten dazwischen.
 \begin{figure}[!htp]
 	\setlength{\unitlength}{1cm}
 	\centering
@@ -70,18 +70,18 @@ Die h\"aufigste in Tensorflow implementierte Version Neuronaler Netze ist das fe
 
 	\end{picture}
 	\vspace{0.5cm}
-	\caption{feedforward Netz}
+	\caption{Feedforward Netz}
 \end{figure}
 
 Hierbei ist jedes Neuron mit jedem Neuron der nachfolgenden Schicht durch Gewichte verbunden.\\
-Die Abbildung zeigt beispielhaft ein feedforward Netzwerk mit 3 Input-Neuronen in der Eingabeschicht, einer versteckten Schicht mit 4 versteckten Neuronen und einer Ausgabeschicht mit 2 Ausgabe-Neuronen \cite{Bishop1995}.\\
-Ein feedforward Netzwerk kann beliebig viele versteckten Schichten enthalten, aber nur eine Eingabe- und eine Ausgabeschicht. Die Anzahl der Neuronen in den versteckten Schichten kann frei gew\"ahlt werden. Eine möglichst sinnvolle Anzahl dieser, genauso wie eine möglichst passende Anzahl der versteckten Schichten lassen sich für das jeweilige Problem nur experimentell bestimmen \cite{handson}. Man sollte darauf achten, nicht zu wenige Neuronen zu verwenden, da sonst die Lernkapazit\"at m\"oglicherweise zu eingeschr\"ankt ist. Auch zu viele Neuronen k\"onnen problematisch sein, da der Zeitaufwand, jedes der vielen Neuronen zu trainieren, sehr groß wird und die Effizienz des Netzwerks darunter leidet \cite{Rashid}. Man kann bereits mit einer versteckten Schicht und einer ausreichend gro\ss en Anzahl von Neuronen jedes Problem simulieren, tendenziell ist es aber besser die Anzahl der Schichten zu erh\"ohen, anstatt die Anzahl der Neuronen pro Schicht \cite{handson}. 
+Die Abbildung zeigt beispielhaft ein Feedforward Netzwerk mit 3 Input-Neuronen in der Eingabeschicht, einer versteckten Schicht mit 4 versteckten Neuronen und einer Ausgabeschicht mit 2 Ausgabe-Neuronen \cite{Bishop1995}.\\
+Ein Feedforward Netzwerk kann beliebig viele versteckten Schichten enthalten, aber nur eine Eingabe- und eine Ausgabeschicht. Die Anzahl der Neuronen in den versteckten Schichten kann frei gew\"ahlt werden. Eine möglichst sinnvolle Anzahl dieser, genauso wie eine möglichst passende Anzahl der versteckten Schichten lassen sich für das jeweilige Problem nur experimentell bestimmen \cite{handson}. Man sollte darauf achten, nicht zu wenige Neuronen zu verwenden, da sonst die Lernkapazit\"at m\"oglicherweise zu eingeschr\"ankt ist. Auch zu viele Neuronen k\"onnen problematisch sein, da der Zeitaufwand, jedes der vielen Neuronen zu trainieren, sehr groß wird und die Effizienz des Netzwerks darunter leidet \cite{Rashid}. Man kann bereits mit einer versteckten Schicht und einer ausreichend gro\ss en Anzahl von Neuronen jedes Problem simulieren, tendenziell ist es aber besser die Anzahl der Schichten zu erh\"ohen, anstatt die Anzahl der Neuronen pro Schicht \cite{handson}. 
 
 
 
 \section{Der Input-Tensor}
-Vektoren und Matrizen werden in Tensorflow als Tensoren bezeichnet. Der Input eines Neuronalen Netzes ist ein n-dimensionaler Vektor, der f\"ur jedes Input-Neuron einen Wert enth\"alt. Die Anzahl der Input-Neuronen richtet sich nach dem untersuchten Problem. Das Einf\"uhrungsbeispiel f\"ur Tensorflow, das in etwa dem $"$Hello World$"$ f\"ur Programmiersprachen entspricht, behandelt ein Klassifikationsproblem \cite{handson}. In diesem Problem sollen mithilfe der \gls{MNIST} Datenbank, die tausende von handgeschriebenen $28 \times 28$ Bilder der Zahlen von 1-9 enth\"alt, das Neuronale Netz lernen handgeschriebene Ziffern zu unterscheiden. F\"ur jedes dieser Bilder existiert eine $28 \times 28$ Matrix mit Grauwerten. Mit dem Befehl \lstinline$reshape(-1,..)$ \cite{handson} l\"asst es sich in einen eindimensionalen Vektor mit  $28*28=784$ Input-Neuronen verwandeln.\\
-Input-Tensoren werden in Tensorflow mit Platzhaltern angelegt, da w\"ahrend des Lernprozesses der Input-Tensor f\"ur jedes zu lernende Beispiel aktualisiert wird. Um den Platzhalter anzulegen, verwendet man den Befehl \cite{cookbook}
+Vektoren und Matrizen werden in \gls{TF} als Tensoren bezeichnet. Der Input eines Neuronalen Netzes ist ein n-dimensionaler Vektor, der f\"ur jedes Input-Neuron einen Wert enth\"alt. Die Anzahl der Input-Neuronen richtet sich nach dem untersuchten Problem. Das Einf\"uhrungsbeispiel f\"ur \gls{TF}, das in etwa dem $"$Hello World$"$ f\"ur Programmiersprachen entspricht, behandelt ein Klassifikationsproblem \cite{handson}. In diesem Problem sollen mithilfe der \gls{MNIST} Datenbank, die tausende von handgeschriebenen $28 \times 28$ Bilder der Zahlen von 1-9 enth\"alt, das Neuronale Netz lernen handgeschriebene Ziffern zu unterscheiden. F\"ur jedes dieser Bilder existiert eine $28 \times 28$ Matrix mit Grauwerten. Mit dem Befehl \lstinline$reshape(-1,..)$ \cite{handson} l\"asst es sich in einen eindimensionalen Vektor mit  $28*28=784$ Input-Neuronen verwandeln.\\
+Input-Tensoren werden in \gls{TF} mit Platzhaltern angelegt, da w\"ahrend des Lernprozesses der Input-Tensor f\"ur jedes zu lernende Beispiel aktualisiert wird. Um den Platzhalter anzulegen, verwendet man den Befehl \cite{cookbook}
 \vspace{0.3cm}
 \begin{lstlisting}
 input= tf.placeholder(dtype,[None,Input_Neuronen])
@@ -102,7 +102,7 @@ w_{n,1}\textsuperscript{(1)} & w_{n,2}\textsuperscript{(1)} & \cdots & w_{n,m_1}
 \end{pmatrix} \end{equation}
 auffassen.\\\\
 Die Zeilen der Matrix $W\textsuperscript{(1)}$ entsprechen allen ausgehenden Verbindungen f\"ur ein Neuron aus der Inputschicht. Die Spalten entsprechen den eingehenden Verbindungen f\"ur ein Neuron aus der versteckten Schicht. \\\\
-Der Tensorflow Befehl, um die Gewichte zwischen zwei Schichten zu initialisieren, lautet \cite{handson}
+Der \gls{TF} Befehl, um die Gewichte zwischen zwei Schichten zu initialisieren, lautet \cite{handson}
 
 \vspace{0.3cm}
 \begin{lstlisting}
@@ -122,8 +122,8 @@ Aktivierungsfunktionen werden verwendet, um den Wertebereich, den die Neuronen a
 Während die \gls{ReLU} Funktion mittlerweile als Standardaktivierungsfunktion dient, wurden vorher oft die Sigmoid- und die Tangenshyperbolicusfunktion eingesetzt, da ihre Ableitungen leicht zu berechnen sind. Deshalb eignen sie sich gut zur Berechnung des Gradienten der Fehlerfunktion.
 
 
-\subsection{Rectified linear unit function}
-Eine beliebte M\"oglichkeit ist die \gls{ReLU}.\\
+\subsection{Rectified linear unit function} \label{sub:relu}
+Eine sehr häufig genutzte Variante einer Aktivierungsfunktion ist die \gls{ReLU} Funktion.\\
 F\"ur die \gls{ReLU} Funktion gilt in der parametrisierten Form \cite{Goodfellow}
 \begin{align*}
 \sigma(x)=
@@ -134,16 +134,16 @@ F\"ur die \gls{ReLU} Funktion gilt in der parametrisierten Form \cite{Goodfellow
 \end{array}
 \right.
 \end{align*}
-wobei a frei w\"ahlbar ist und an das jeweilige Beispiel angepasst werden kann. Obwohl die \gls{ReLU} Funktion eine sehr einfache, fast lineare, Funktion ist, erweist sie sich als sehr leistungsf\"ahig. Sie dient als Standardaktivierungsfunktion, die f\"ur die meisten feedforward Netzwerke empfohlen wird \cite{Goodfellow}. 
+wobei a frei w\"ahlbar ist und an das jeweilige Beispiel angepasst werden kann. Obwohl die \gls{ReLU} Funktion eine sehr einfache, fast lineare, Funktion ist, erweist sie sich als sehr leistungsf\"ahig. Sie dient als Standardaktivierungsfunktion, die f\"ur die meisten Feedforward Netzwerke empfohlen wird \cite{Goodfellow}. 
 Die \gls{ReLU} Funktion ist stetig, aber im Nullpunkt nicht differenzierbar \cite{cookbook}. Während der linksseitige Grenzwert der Ableitung 0 ist, ist der rechtsseitige Grenzwert 1.\\
-In der Praxis spielt das kaum eine Rolle, da während des Rechnens meist Werte verwendet werden, die nur sehr nahe an der Null sind, jedoch nicht zu Null werden, und dabei den links- bzw. rechtsseitigen Wert für die Ableitung liefern \cite{Goodfellow}. In Tensorflow ist die \gls{ReLU} Funktion auf verschiedene Arten implementiert, die oben beschriebene Standard \gls{ReLU} Funktion allerdings nur f\"ur den Parameterwert a=1. Sie wird mit dem Befehl \cite{cookbook}
+In der Praxis spielt das kaum eine Rolle, da während des Rechnens meist Werte verwendet werden, die nur sehr nahe an der Null sind, jedoch nicht zu Null werden, und dabei den links- bzw. rechtsseitigen Wert für die Ableitung liefern \cite{Goodfellow}. In \gls{TF} ist die \gls{ReLU} Funktion auf verschiedene Arten implementiert, die oben beschriebene Standard \gls{ReLU} Funktion allerdings nur f\"ur den Parameterwert a=1. Sie wird mit dem Befehl \cite{cookbook}
 
 \vspace{0.3cm}
 \begin{lstlisting}
 tf.nn.relu(features, name=None)
 \end{lstlisting} 
 
-eingebunden. Eine andere in Tensorflow verwendete Versionen der \gls{ReLU} Funktion ist \cite{cookbook}
+eingebunden. Eine andere in \gls{TF} verwendete Versionen der \gls{ReLU} Funktion ist \cite{cookbook}
 
 \vspace{0.3cm}
 \begin{lstlisting}
@@ -166,7 +166,7 @@ Sie kann schneller berechnet werden und hat den Vorteil, dass weder Werte nahe d
 
 \subsection{Sigmoidfunktion}
 Eine andere Aktivierungsfunktion ist die Sigmoidfunktion. Beliebt wurde die Sigmoidfunktion in den 1980er Jahren, um die davor verwendeten Stufenfunktionen zu ersetzen. Die Sigmoidfunktion hatte den Vorteil, dass sie der Stufenfunktion ähnelte, dabei aber auf dem ganzen Wertebereich differenzierbar war. Sie wurde bis in die 2000er Jahre häufig verwendet. Sie wird mittlerweile häufig durch die relu Funktion ersetzt \cite{Goodfellow}. \\
-Die in Tensorflow verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
+Die in \gls{TF} verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
 
 \begin{equation}
 \sigma(x)=\frac{1}{1+e^{-x}}
@@ -179,7 +179,7 @@ Die in Tensorflow verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
 \end{figure}
 
 
-Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, was sich sehr gut eignet, falls die Ausgabewerte des Netzwerks ebenfalls in diesem Bereich liegen. In Tensorflow ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
+Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, daher findet sie häufig Anwendung in binären Klassifikationsproblemen.\cite{Goodfellow} Ein Problem der Sigmoidfunktion ist das ihre Ableitung geringer wird je größer bzw. kleiner die eingesetzten Werte sind. Da für das lernen die Ableitung der Sigmoidfunktion verwendet wird, wird der Lernprozess für sehr große Werte bzw. sehr kleine Werte sehr langsam.\cite{Goodfellow} In \gls{TF} ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
 definiert.
 
 
@@ -199,6 +199,12 @@ tanh(x)=\frac{e^x - e^{-x}}{e^x + e^{-x}}.
 Wie in der Abbildung ersichtlich wird, befindet sich der Wertebereich des Tangenshyperbolicus im Intervall von [-1,1]. Es wird mit \lstinline$tf.tanh(x, name=None)$ \cite{building} aufgerufen. 
 Der Tangenshyberbolicus eignet sich vor allem, wenn man den Wertebereich auf negative Zahlen ausdehnen möchte \cite{cookbook}.
 
+\subsection{Softmax}\label{softmax}
+Eine weitere nützliche Aktivierungsfunktion ist die Softmaxfunktion. Diese kommt vor allem in Klassifikationssproblemen zum Einsatz und wird dort auf die Outputschicht angewandt um eine Wahrscheinlichkeitsverteilung zu erzeugen.
+\begin{equation}
+softmax(x)_i=\frac{e^{x_i}}{\sum_{j=1}^{N}e^{x_j}}.
+\end{equation}\cite{Goodfellow}
+Wie man sieht liegen die Werte der Softmaxfunktion zwischen Null und Eins. Summiert man alle Werte auf erhält man Eins, wie man es von einer Warscheinlichkeitsverteilung erwartet. Um den Output des Netzes zu bestimmen nimmt man nun den Wert mit der größten Wahrscheinlichkeit.\cite{handson} Die Softmaxfunktion wird meistens in Verbindung mit der Cross Entropy Kostenfunktion verwendet, die sich sehr gut für Klassifikationsprobleme eignet und im nächsten Kapitel näher erläutert wird.
 
 \section{Kostenfunktionen}
 Kosten- oder Fehlerfunktionen sind ein Ma\ss daf\"ur, wie gut ein \gls{NN} lernt. Es stellt eine berechenbare Formel bereit, die den durch das Netz berechneten Output f\"ur ein Trainingsbeispiel mit dem zu lernenden Output vergleicht. Au\ss erdem werden sie f\"ur das lernen des \gls{NN} ben\"otigt, da aus den Ableitungen der jeweiligen Kostenfunktion f\"ur das zugeh\"orige Gewicht die neuen Gewichte gebildet werden \cite{Goodfellow}.
@@ -229,20 +235,20 @@ Eine andere M\"oglichkeit ist die sogenannte Cross Entropy Funktion \cite{Nielse
 CE= - \frac{1}{N} \sum_{i=1}^{N}\hat{o}_i \ln o_i + (1- \hat{o}_i) \ln (1-o_i)
 \end{equation}
 
-Der Vorteil der Cross Entropy Funktion besteht darin, dass sie umso schneller lernt je gr\"o\ss er der anf\"angliche Fehler ist. Beginnt man also bei sehr ung\"unstig gew\"ahlten zuf\"alligen Gewichten mit dem Lernprozess, wird Cross Entropy schneller bessere Ergebnisse liefern als der MSE \cite{Nielsen}. Welche man letztendlich verwendet, h\"angt vom zugrundeliegenden Problem ab.\\
-Cross entropy wird in Tensorflow mit dem Befehl
+Der Vorteil der Cross Entropy Funktion besteht darin, dass sie umso schneller lernt je gr\"o\ss er der anf\"angliche Fehler ist. Beginnt man also bei sehr ung\"unstig gew\"ahlten zuf\"alligen Gewichten mit dem Lernprozess, wird Cross Entropy schneller bessere Ergebnisse liefern als der \gls{MSE} \cite{Nielsen}. Welche man letztendlich verwendet, h\"angt vom zugrundeliegenden Problem ab. Während der \gls{MSE} bei Regressionen beliebt ist, findet Cross Entropy bei Klassifikationsproblemen häufig Anwendung.\\
+Cross Entropy wird in \gls{TF} mit dem Befehl
 
 \vspace{0.3cm} 
 \begin{lstlisting}
 Kosten=tf.nn.softmax_cross_entropy_with_logits()
 \end{lstlisting}
 
-verwendet \cite{cookbook}.
+verwendet \cite{cookbook}. Wie man sieht wird in dieser Version des Befehls bereits eine Softmaxfunktion automatisch mit angewandt.
 
 
 
 \section{Der Lernprozess}
-Damit das Netz lernt m\"ussen nach und nach die Gewichte angepasst werden. Zu diesem Zweck berechnet man die Ableitung der Kostenfunktion und benutzt sie, um die Gewichte abzu\"andern. Dieses Verfahren wird $"$Backpropagation of Error$"$ mittels $"$Gradient Descent$"$ - dem Gradientabstiegsverfahren - genannt.\\
+Damit das Netz lernt m\"ussen nach und nach die Gewichte angepasst werden. Zu diesem Zweck berechnet man die Ableitung der Kostenfunktion und benutzt sie, um die Gewichte abzu\"andern. Dieses Verfahren wird $\glqq$Backpropagation of Error$\grqq$ mittels $\glqq$Gradient Descent$\grqq$ - dem Gradientabstiegsverfahren - genannt.\\
 Das Update der Gewichte funktioniert nach folgender Regel: \cite{Rojas1996}
 
 \begin{equation}
@@ -258,4 +264,4 @@ Trainiert wird das Netzwerk letztendlich mit dem Befehl \cite{building}
 tf.train.GradientDescentOptimizer(Lernrate).minimize(Kosten)
 \end{lstlisting}
 
-Das Gradientenabstiegsverfahren ist dabei eine der einfachsten Optimierungsalgorithmen für das Lernen. Es gehört zur Gruppe der sogenannten Optimierungsalgorithmen erster Ordnung \cite{Goodfellow}. Darauf aufbauend gibt es eine Reihe von Erweiterungen wie zum Beispiel den $"$Stochastic Gradient Descent$"$ \cite{Goodfellow}.
+Das Gradientenabstiegsverfahren ist dabei eine der einfachsten Optimierungsalgorithmen für das Lernen. Es gehört zur Gruppe der sogenannten Optimierungsalgorithmen erster Ordnung \cite{Goodfellow}. Darauf aufbauend gibt es eine Reihe von Erweiterungen wie zum Beispiel den $\glqq$Stochastic Gradient Descent$\grqq$ \cite{Goodfellow}.
