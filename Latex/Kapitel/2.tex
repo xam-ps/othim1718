@@ -1,4 +1,4 @@
-﻿\chapter{Neuronale Netze in TensorFlow}
+\chapter{Neuronale Netze in TensorFlow}
 Neuronale Netze sind das am h\"aufigsten benutzte Werkzeug in \gls{TF}. Im Folgenden werden die Grundlagen f\"ur Neuronale Netze vorgestellt, sowie deren Umsetzung in \gls{TF}. Dabei wird mit \cite{cookbook}
 \vspace{0.3cm}
 \begin{lstlisting}
@@ -84,7 +84,7 @@ Vektoren und Matrizen werden in \gls{TF} als Tensoren bezeichnet. Der Input eine
 Input-Tensoren werden in \gls{TF} mit Platzhaltern angelegt, da w\"ahrend des Lernprozesses der Input-Tensor f\"ur jedes zu lernende Beispiel aktualisiert wird. Um den Platzhalter anzulegen, verwendet man den Befehl \cite{cookbook}
 \vspace{0.3cm}
 \begin{lstlisting}
-input= tf.placeholder(dtype,[None,Input_Neuronen])
+input = tf.placeholder(dtype,[None,Input_Neuronen])
 \end{lstlisting}
 Mit dtype wird der Datentyp des Inputs f\"ur die einzelnen Neuronen gew\"ahlt. Die Variable \lstinline$Input_Neuronen$ gibt die Anzahl der Input-Neuronen an. \lstinline$None$ steht f\"ur die Anzahl der Trainingsdaten, die sp\"ater noch dynamisch eingef\"ugt wird. So muss man sich zun\"achst nicht festlegen, wie viele Trainingsdaten man benutzen will \cite{handson}. 
 
@@ -179,8 +179,9 @@ Die in \gls{TF} verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
 \end{figure}
 
 
-Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, daher findet sie häufig Anwendung in binären Klassifikationsproblemen.\cite{Goodfellow} Ein Problem der Sigmoidfunktion ist das ihre Ableitung geringer wird je größer bzw. kleiner die eingesetzten Werte sind. Da für das lernen die Ableitung der Sigmoidfunktion verwendet wird, wird der Lernprozess für sehr große Werte bzw. sehr kleine Werte sehr langsam.\cite{Goodfellow} In \gls{TF} ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
+Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, daher findet sie häufig Anwendung in binären Klassifikationsproblemen \cite{Goodfellow}. Ein Problem der Sigmoidfunktion ist das ihre Ableitung geringer wird je größer bzw. kleiner die eingesetzten Werte sind. Da für das Lernen die Ableitung der Sigmoidfunktion verwendet wird, wird der Lernprozess für sehr große Werte bzw. sehr kleine Werte sehr langsam \cite{Goodfellow}. In \gls{TF} ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
 definiert.
+
 
 
 \subsection{Tangenshyperbolicus}
@@ -199,15 +200,25 @@ tanh(x)=\frac{e^x - e^{-x}}{e^x + e^{-x}}.
 Wie in der Abbildung ersichtlich wird, befindet sich der Wertebereich des Tangenshyperbolicus im Intervall von [-1,1]. Es wird mit \lstinline$tf.tanh(x, name=None)$ \cite{building} aufgerufen. 
 Der Tangenshyberbolicus eignet sich vor allem, wenn man den Wertebereich auf negative Zahlen ausdehnen möchte \cite{cookbook}.
 
+
+
+
 \subsection{Softmax}\label{softmax}
-Eine weitere nützliche Aktivierungsfunktion ist die Softmaxfunktion. Diese kommt vor allem in Klassifikationssproblemen zum Einsatz und wird dort auf die Outputschicht angewandt um eine Wahrscheinlichkeitsverteilung zu erzeugen.
+Eine weitere nützliche Aktivierungsfunktion ist die Softmaxfunktion. Diese kommt vor allem in Klassifikationsproblemen zum Einsatz und wird dort auf die Outputschicht angewandt um eine Wahrscheinlichkeitsverteilung zu erzeugen \cite{Goodfellow}.
+
 \begin{equation}
 softmax(x)_i=\frac{e^{x_i}}{\sum_{j=1}^{N}e^{x_j}}.
-\end{equation}\cite{Goodfellow}
-Wie man sieht liegen die Werte der Softmaxfunktion zwischen Null und Eins. Summiert man alle Werte auf erhält man Eins, wie man es von einer Warscheinlichkeitsverteilung erwartet. Um den Output des Netzes zu bestimmen nimmt man nun den Wert mit der größten Wahrscheinlichkeit.\cite{handson} Die Softmaxfunktion wird meistens in Verbindung mit der Cross Entropy Kostenfunktion verwendet, die sich sehr gut für Klassifikationsprobleme eignet und im nächsten Kapitel näher erläutert wird.
+\end{equation}
+
+
+Wie man sieht liegen die Werte der Softmaxfunktion zwischen Null und Eins. Summiert man alle Werte auf erhält man Eins, wie man es von einer Wahrscheinlichkeitsverteilung erwartet. Um den Output des Netzes zu bestimmen nimmt man nun den Wert mit der größten Wahrscheinlichkeit \cite{handson}. Die Softmaxfunktion wird meistens in Verbindung mit der Cross Entropy Kostenfunktion verwendet, die sich sehr gut für Klassifikationsprobleme eignet und im nächsten Kapitel näher erläutert wird.
+
+
 
 \section{Kostenfunktionen}
-Kosten- oder Fehlerfunktionen sind ein Ma\ss daf\"ur, wie gut ein \gls{NN} lernt. Es stellt eine berechenbare Formel bereit, die den durch das Netz berechneten Output f\"ur ein Trainingsbeispiel mit dem zu lernenden Output vergleicht. Au\ss erdem werden sie f\"ur das lernen des \gls{NN} ben\"otigt, da aus den Ableitungen der jeweiligen Kostenfunktion f\"ur das zugeh\"orige Gewicht die neuen Gewichte gebildet werden \cite{Goodfellow}.
+Kosten- oder Fehlerfunktionen sind ein Maß daf\"ur, wie gut ein \gls{NN} lernt. Es stellt eine berechenbare Formel bereit, die den durch das Netz berechneten Output f\"ur ein Trainingsbeispiel mit dem zu lernenden Output vergleicht. Au\ss erdem werden sie f\"ur das lernen des \gls{NN} ben\"otigt, da aus den Ableitungen der jeweiligen Kostenfunktion f\"ur das zugeh\"orige Gewicht die neuen Gewichte gebildet werden \cite{Goodfellow}.
+
+
 
 
 \subsection{Mean Squared Error}
@@ -222,7 +233,7 @@ Der \gls{MSE} wird mit \cite{cookbook}
 
 \vspace{0.3cm}
 \begin{lstlisting}
-Kosten=tf.losses.mean_squared_error(labels,predictions)
+Kosten = tf.losses.mean_squared_error(labels,predictions)
 \end{lstlisting}
 
 eingebunden und summiert die Quadrate der Abweichungen auf, d.h. je geringer der \gls{MSE} wird, desto genauer hat das Netz die Trainingsdaten gelernt.
@@ -240,7 +251,7 @@ Cross Entropy wird in \gls{TF} mit dem Befehl
 
 \vspace{0.3cm} 
 \begin{lstlisting}
-Kosten=tf.nn.softmax_cross_entropy_with_logits()
+Kosten = tf.nn.softmax_cross_entropy_with_logits()
 \end{lstlisting}
 
 verwendet \cite{cookbook}. Wie man sieht wird in dieser Version des Befehls bereits eine Softmaxfunktion automatisch mit angewandt.

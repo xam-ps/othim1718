@@ -103,7 +103,7 @@ tf.summary.scalar(name, tensor, collections=None, family=None)
 
 \vspace{0.2cm}
 
-abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
+abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit (Accuracy) oder Kreuzentropie (Cross Entropy) sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
 
 \begin{figure}[h!]
 	\centering
@@ -124,25 +124,24 @@ abgespeichert werden, können verschiedenste Statistiken während eines Training
 %\vspace{30pt}
 
 Innerhalb des Reiters Bilder, welche mit der Klasse
-\\
 
+\vspace{0.6cm}
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:image}]
 tf.summary.image(name, tensor, max_outputs=3, collections=None, family=None)
 \end{lstlisting}
 \end{minipage}
-
+\vspace{0.3cm}
 
 \begin{figure}[htb!]
 	\centering
      \includegraphics[width=6cm]{images/Kapitel_3/images.png}
 	\vspace{10pt} 
 	\caption{Bild des Testschrittes 490}
-	\label{fig:DBvsTF}
+	\label{fig:TensorBoard_image}
 \end{figure}
 
-abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
-Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört \cite{tensorboard.2017}.
+abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. Wie in Abbildung \ref{fig:TensorBoard_image} ersichtlich, ist über den Bildern eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört \cite{tensorboard.2017}.
 \vspace{50pt}
 \newpage
 
@@ -168,7 +167,7 @@ abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilde
 \subsection{Graphen} \label{sub:tb-graph}
 %\textbf{\textit{Graphen}}
 \vspace{10pt}
-Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph,  wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Nur wenn im erstellten Programm vorher Name scopes definiert wurden, zeigt TensorBoard den Graphen an. Um Graphen in Tensorboard zu erhalten, müssen die gewünschten Operationen als Name scope erstellt werden. Mit nachfolgendem Befehl in Zeile 1 erhält man einen \textit{cross\_entropy} Name scope: 
+Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph,  wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Nur wenn im vorher erstellten Programm Name scopes zu den gewünschten Operationen definiert wurden, werden diese in TensorBoard als Graph angezeigt. Mit nachfolgendem Befehl in Zeile 1 erhält man einen \textit{cross\_entropy} Name scope: 
 \\
 
 \begin{minipage}{\linewidth}
