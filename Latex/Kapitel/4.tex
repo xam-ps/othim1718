@@ -35,7 +35,7 @@ Die Unterteilung des Datensatzes in einen festen Trainingssatz und einen festen 
 
 \section{Die Visualisierung mit TensorBoard}
 
-TensorBoard ist eine in TensorFlow enthaltene Webanwendung zur Visualisierung der Abläufe in einem neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur Verfügung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso können damit insbesondere komplexe Datenstrukturen zum besseren Verständnis anschaulich visualisiert werden. 
+TensorBoard ist eine in TensorFlow enthaltene Webanwendung zur Visualisierung der Abläufe in einem Neuronalen Netz. TensorBoard stellt eine Vielzahl an graphischen Elementen zur Verfügung, welche dem Entwickler vorallem das Debuggen oder die Optimierung eines erstellten Modells erleichtern. Ebenso können damit insbesondere komplexe Datenstrukturen zum besseren Verständnis anschaulich visualisiert werden. 
 
 Bevor mit TensorBoard gearbeitet werden kann, muss nachfolgender Befehl in die Kommandozeile eingegeben werden:
 \\
@@ -63,7 +63,7 @@ abgespeichert werden müssen. Nachdem TensorBoard gestart wurde, navigiert man m
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, label={lst:FileWriter}]
+\begin{lstlisting}[language=Python, label={lst:localhost}]
 http://localhost:6006
 
 \end{lstlisting}
@@ -103,19 +103,20 @@ tf.summary.scalar(name, tensor, collections=None, family=None)
 
 \vspace{0.2cm}
 
-abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit oder Cross-Entropie sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
+abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Ein Name und ein Tensor müssen bei der Klassendeklaration angegeben werden, im Gegensatz zu den Schlüsselwortparametern \textit{collections} (Zusammenfassung mehrerer Operationen in einer Sammlung) und \textit{family} (Zusammenfassung der Skalare durch verschachtelte Tag-Tags) welche nicht zwingend erforderlich sind. Dies könnten zum Beispiel die Genauigkeit (Accuracy) oder Kreuzentropie (Cross Entropy) sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
 
+\vspace{0.3cm}
 \begin{figure}[h!]
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
 	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/skalars.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung der 'Accuracy' und 'Cross\_entropy' über die einzelnen Trainingsschritte]{Visualisierung der 'Accuracy' und 'Cross\_entropy' über die einzelnen Trainingschritte}
+	\caption[Visualisierung der Accuracy und Cross Entropy über die einzelnen Trainingsschritte]{Visualisierung der Accuracy und Cross Entropy über die einzelnen Trainingsschritte}
 	\label{fig:skalare}
 \end{figure}
 
-
+Der in Abbildung \ref{fig:skalare} eingestellte Glättungsfaktor beträgt 0.6, wodurch der veränderte Wert 0.9499 bei \textit{Smoothed} zustande kommt. Bei einem Glättungsfaktor von 0 sind die Werte \textit{Smoothed} und \textit{Value} identisch. 
 
 
 
@@ -124,25 +125,24 @@ abgespeichert werden, können verschiedenste Statistiken während eines Training
 %\vspace{30pt}
 
 Innerhalb des Reiters Bilder, welche mit der Klasse
-\\
 
+\vspace{0.6cm}
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:image}]
 tf.summary.image(name, tensor, max_outputs=3, collections=None, family=None)
 \end{lstlisting}
 \end{minipage}
-
+\vspace{0.3cm}
 
 \begin{figure}[htb!]
 	\centering
      \includegraphics[width=6cm]{images/Kapitel_3/images.png}
 	\vspace{10pt} 
 	\caption{Bild des Testschrittes 490}
-	\label{fig:DBvsTF}
+	\label{fig:TensorBoard_image}
 \end{figure}
 
-abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. 
-Über den Bildern ist eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört \cite{tensorboard.2017}.
+abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilder eingesehen werden. Wie in Abbildung \ref{fig:TensorBoard_image} ersichtlich, ist über den Bildern eine Scrollbar vorhanden mit dieser können einzelne Test- und Trainingsschritte ausgewählt werden, wodurch genau ersichtlich wird, welches Bild zum aktuellen Durchlauf gehört \cite{tensorboard.2017}.
 \vspace{50pt}
 \newpage
 
@@ -166,21 +166,23 @@ abgespeichert werden, können zur genaueren Analyse die Test- und Trainingsbilde
 
 
 \subsection{Graphen} \label{sub:tb-graph}
-%\textbf{\textit{Graphen}}
-\vspace{10pt}
-Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph,  wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Nur wenn im erstellten Programm vorher Name scopes definiert wurden, zeigt TensorBoard den Graphen an. Um Graphen in Tensorboard zu erhalten, müssen die gewünschten Operationen als Name scope erstellt werden. Mit nachfolgendem Befehl in Zeile 1 erhält man einen \textit{cross\_entropy} Name scope: 
-\\
 
+\vspace{8pt}
+Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph,  wie in Abbildung \ref{fig:TensorFlow_Graph} zu sehen ist. Nur wenn im vorher erstellten Programm Name scopes zu den gewünschten Operationen definiert wurden, werden diese in TensorBoard als Graph angezeigt. Mit nachfolgendem Befehl in Zeile 1 erhält man einen \textit{cross\_entropy} Name scope: 
+
+\vspace{0.2cm}
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting}[label={lst:graph}, caption={Erstellen verschachtelter Name scopes}]
+# create a 'cross_entropy' name scope
 with tf.name_scope('cross_entropy'):
-  diff = tf.nn.softmax_cross_entropy_with_logits(targets=y_, logits=y)
-  with tf.name_scope('total'):
-    cross_entropy = tf.reduce_mean(diff)
+   diff = tf.nn.softmax_cross_entropy_with_logits(targets=y_, logits=y)
+   # name scope 'total' within name scope 'cross_entropy'
+   with tf.name_scope('total'):
+     cross_entropy = tf.reduce_mean(diff)
 tf.summary.scalar('cross_entropy', cross_entropy)
 \end{lstlisting}
 \end{minipage}
-\vspace{0.2cm}
+\vspace{0.3cm}
 
 Der Name scope \textit{cross\_entropy} in Abbildung \ref{fig:name_scope_cross_entropy} kann natürlich wiederum in mehrere Untergruppierungen aufgeteilt werden. So erhält man eine übersichtliche Visualisierung komplexer TensorFlow Modelle \cite{tensorboard.2017}.
 
@@ -196,7 +198,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:histogram}]
 tf.summary.histogram(name, values, collections=None, familiy=None)
 \end{lstlisting}
 \end{minipage}
@@ -212,7 +214,7 @@ abgespeichert werden, wird die statistische Verteilung eines Tensors über der Z
 	%\hspace{-1.0cm} 
 	 \includegraphics[width=0.7\textwidth]{images/Kapitel_3/histogram.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung eines Histogramms über die einzelnen Trainingsschritte]{Visualisierung eines Histogramms über die einzelnen Trainingschritte}
+	\caption[Visualisierung eines Histogramms über die einzelnen Trainingsschritte]{Visualisierung eines Histogramms über die einzelnen Trainingschritte}\vspace{0.4cm}
 	\label{fig:histogram}
 \end{figure}
 
@@ -229,7 +231,7 @@ Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:distribution}]
 tf.summary.histogram(name, values, collections=None, familiy=None)
 \end{lstlisting}
 \end{minipage}
@@ -237,11 +239,12 @@ tf.summary.histogram(name, values, collections=None, familiy=None)
 
 abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit \cite{tensorboard.2017}.
 
+\vspace{0.4cm}
 \begin{figure}[h!]
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/distribution.png}\\
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/distribution.png}\\
 	\vspace{10pt} 
 	\caption[Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung]{Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung}
 	\label{fig:verteilung}
@@ -255,16 +258,16 @@ abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung
 
 %\textbf{\textit{Projektor}}
 
-Die Auswahl des Reiters Projektors ermöglicht die höherdimensionale Visualisierung der Eingabedaten. Nachfolgend eine mögliche Konfiguration des Projektors:
+Die Auswahl des Reiters Projektors ermöglicht die höherdimensionale Visualisierung der Eingabedaten. Nachfolgend eine mögliche minimale Konfiguration des Projektors:
 \vspace{0.1cm}
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}, caption={Konfiguration eines Projektors in TensorFlow \cite{embedding_viz}}]
+\begin{lstlisting} [label={lst:embedding}, caption={Konfiguration eines Projektors in TensorFlow \cite{embedding_viz}}]
 from tensorflow.contrib.tensorboard.plugins import projector
 
 # Use the same LOG_DIR where you stored your checkpoint.
-summary_writer = tf.train.SummaryWriter(LOG_DIR)
+summary_writer = tf.summary.FileWriter(LOG_DIR)
 
 # Format: tensorflow/contrib/tensorboard/plugins/projector/projector_config.proto
 config = projector.ProjectorConfig()
@@ -286,7 +289,7 @@ Hierbei werden zwei wesentliche Darstellungen unterschieden.
 \vspace{10pt}
 
 \begin{itemize} 
-\item PCA (Prinicipal Component Analysis) \vspace{10pt}
+\item \gls{PCA} \vspace{10pt}
 
 Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimensionalem Raum dargestellt werden können.  Hierbei werden bei der Hauptkomponentenanalyse (PCA) die Daten so auf eine zweidimensionale (bzw. dreidimensionaler) Ebene projiziert, mit der Erwartung, dass diese neue Darstellung eventuell vorhandenes Rauschen herausfiltert und versteckte Strukturen zum Vorschein bringt \cite{pca}.
 %http://www.statistics4u.info/fundstat_germ/cc_pca.html
@@ -294,15 +297,15 @@ Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimen
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_pca.png}\\
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/projektor_pca.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung des PCA]{Visualisierung des PCA}
+	\caption[Visualisierung der PCA]{Visualisierung der PCA} \vspace{0.8cm}
 	\label{fig:pca}
 \end{figure}
 
 
 
-\item T-SNE (T-distributed Stochastic Neighbor Embedding) \vspace{10pt}
+\item \gls{t-SNE} \vspace{10pt}
 
 Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensionale Daten in einen Raum von zwei oder drei Dimensionen zu projizieren. Hierbei wird jedes hochdimensionale Objekt durch einen zwei- oder dreidimensionalen Punkt modelliert, sodass ähnliche Objekte durch nahe gelegene Punkte und ungleiche Objekte durch entfernte Punkte modelliert werden \cite{t-sne}.
 
@@ -311,9 +314,9 @@ Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensio
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_t-sne.png}\\
-	\vspace{10pt} 
-	\caption[Visualisierung des T-SNE]{Visualisierung des T-SNE}
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/projektor_t-sne.png}\\
+	\vspace{15pt} 
+	\caption[Visualisierung der t-SNE]{Visualisierung der t-SNE}
 	\label{fig:t-sne}
 \end{figure}
 
@@ -326,19 +329,19 @@ Unter dem Reiter Audio können mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:audio}]
 tf.summary.audio(name, tensor, sample_rate, max_outputs=3, collections=None, family=None)
 \end{lstlisting}
 \end{minipage}
 \vspace{0.2cm}
 
-abspielbare Audio-Widgets eingebettet werden.\\
+abspielbare Audio-Widgets eingebettet werden. Die Deklaration dieser Klasse folgt analog der vorherigen Klassen, nur das zuätzlich eine \textit{sample\_rate} angegeben werden muss.\\
 
 Ebenso können unter dem Reiter Text mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:text}]
 tf.summary.text(name, tensor, collections=None)
 \end{lstlisting}
 \end{minipage}
@@ -362,7 +365,7 @@ Textausschnitte abgespeichert werden. Zusätzliche Funktionen wie Hyperlinks, Li
 \textbf{Namespace} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/namespace.png}
 \label{fig:namespace}
- & High-level Knoten repräsentiert einen definierten Namensbereich.   \tabularnewline
+ & High-level Knoten repräsentiert einen definierten Name scope.   \tabularnewline
   
 \textbf{Unconnected series} \tabularnewline 
 \includegraphics[width=0.1\textwidth]{images/Kapitel_3/Unconnected_series.png}
