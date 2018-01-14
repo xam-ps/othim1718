@@ -63,7 +63,7 @@ abgespeichert werden müssen. Nachdem TensorBoard gestart wurde, navigiert man m
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, label={lst:FileWriter}]
+\begin{lstlisting}[language=Python, label={lst:localhost}]
 http://localhost:6006
 
 \end{lstlisting}
@@ -105,6 +105,7 @@ tf.summary.scalar(name, tensor, collections=None, family=None)
 
 abgespeichert werden, können verschiedenste Statistiken während eines Trainingsprozesses visualisiert werden. Dies könnten zum Beispiel die Genauigkeit (Accuracy) oder Kreuzentropie (Cross Entropy) sein, welche in Abbildung \ref{fig:skalare} dargestellt sind. Hierbei wird die Genauigkeit über den einzelnen Trainingsschritten aufgetragen. Wählt man mit der Maus einen bestimmten Datenpunkt aus, so werden zahlreiche weitere Informationen angezeigt. Ebenso ist hierbei ersichtlich, dass auch Trainings- und Testdaten gleichzeitig angezeigt und miteinander verglichen werden können \cite{tensorboard.2017}.
 
+\vspace{0.3cm}
 \begin{figure}[h!]
 	\centering
 	%\vspace{-35pt}
@@ -171,7 +172,7 @@ Unter dem Reiter Graphen befindet sich das komplette TensorFlow Model als Graph,
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:graph}]
 with tf.name_scope('cross_entropy'):
   diff = tf.nn.softmax_cross_entropy_with_logits(targets=y_, logits=y)
   with tf.name_scope('total'):
@@ -195,7 +196,7 @@ Unter dem Reiter Histogramme, welche mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:histogram}]
 tf.summary.histogram(name, values, collections=None, familiy=None)
 \end{lstlisting}
 \end{minipage}
@@ -228,7 +229,7 @@ Unter dem Reiter Verteilungen, welche ebenfalls mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:distribution}]
 tf.summary.histogram(name, values, collections=None, familiy=None)
 \end{lstlisting}
 \end{minipage}
@@ -236,11 +237,12 @@ tf.summary.histogram(name, values, collections=None, familiy=None)
 
 abgespeichert werden, befindet sich eine weitere Möglichkeit der Visualisierung der statistischen Verteilung. Hierbei repräsentiert die oberste Linie den über die Zeit veränderten maximalen Wert, die unterste Linie den minimalen Wert und die mittlere Linie den veränderten Median über der Zeit \cite{tensorboard.2017}.
 
+\vspace{0.4cm}
 \begin{figure}[h!]
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/distribution.png}\\
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/distribution.png}\\
 	\vspace{10pt} 
 	\caption[Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung]{Eine weitere Möglichkeit der Visualisierung der statistischen Verteilung}
 	\label{fig:verteilung}
@@ -259,7 +261,7 @@ Die Auswahl des Reiters Projektors ermöglicht die höherdimensionale Visualisie
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}, caption={Konfiguration eines Projektors in TensorFlow \cite{embedding_viz}}]
+\begin{lstlisting} [label={lst:embedding}, caption={Konfiguration eines Projektors in TensorFlow \cite{embedding_viz}}]
 from tensorflow.contrib.tensorboard.plugins import projector
 
 # Use the same LOG_DIR where you stored your checkpoint.
@@ -285,7 +287,7 @@ Hierbei werden zwei wesentliche Darstellungen unterschieden.
 \vspace{10pt}
 
 \begin{itemize} 
-\item PCA (Prinicipal Component Analysis) \vspace{10pt}
+\item \gls{PCA} \vspace{10pt}
 
 Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimensionalem Raum dargestellt werden können.  Hierbei werden bei der Hauptkomponentenanalyse (PCA) die Daten so auf eine zweidimensionale (bzw. dreidimensionaler) Ebene projiziert, mit der Erwartung, dass diese neue Darstellung eventuell vorhandenes Rauschen herausfiltert und versteckte Strukturen zum Vorschein bringt \cite{pca}.
 %http://www.statistics4u.info/fundstat_germ/cc_pca.html
@@ -293,15 +295,15 @@ Ein häufiges Problem bei multivariaten Daten ist, dass diese nicht im zweidimen
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_pca.png}\\
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/projektor_pca.png}\\
 	\vspace{10pt} 
-	\caption[Visualisierung des PCA]{Visualisierung des PCA}
+	\caption[Visualisierung der PCA]{Visualisierung der PCA} \vspace{0.7cm}
 	\label{fig:pca}
 \end{figure}
 
 
 
-\item T-SNE (T-distributed Stochastic Neighbor Embedding) \vspace{10pt}
+\item \gls{t-SNE} \vspace{10pt}
 
 Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensionale Daten in einen Raum von zwei oder drei Dimensionen zu projizieren. Hierbei wird jedes hochdimensionale Objekt durch einen zwei- oder dreidimensionalen Punkt modelliert, sodass ähnliche Objekte durch nahe gelegene Punkte und ungleiche Objekte durch entfernte Punkte modelliert werden \cite{t-sne}.
 
@@ -310,9 +312,9 @@ Diese Technik der Dimensionsreduktion eignet sich besonders gut, um hochdimensio
 	\centering
 	%\vspace{-35pt}
 	%\hspace{-1.0cm} 
-	 \includegraphics[width=0.6\textwidth]{images/Kapitel_3/projektor_t-sne.png}\\
-	\vspace{10pt} 
-	\caption[Visualisierung des T-SNE]{Visualisierung des T-SNE}
+	 \includegraphics[width=0.8\textwidth]{images/Kapitel_3/projektor_t-sne.png}\\
+	\vspace{15pt} 
+	\caption[Visualisierung der t-SNE]{Visualisierung der t-SNE}
 	\label{fig:t-sne}
 \end{figure}
 
@@ -325,7 +327,7 @@ Unter dem Reiter Audio können mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:audio}]
 tf.summary.audio(name, tensor, sample_rate, max_outputs=3, collections=None, family=None)
 \end{lstlisting}
 \end{minipage}
@@ -337,7 +339,7 @@ Ebenso können unter dem Reiter Text mit der Klasse
 \\
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting} [label={lst:scalar}]
+\begin{lstlisting} [label={lst:text}]
 tf.summary.text(name, tensor, collections=None)
 \end{lstlisting}
 \end{minipage}
