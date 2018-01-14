@@ -75,12 +75,12 @@ Die h\"aufigste in \gls{TF} implementierte Version Neuronaler Netze ist das Feed
 
 Hierbei ist jedes Neuron mit jedem Neuron der nachfolgenden Schicht durch Gewichte verbunden.\\
 Die Abbildung zeigt beispielhaft ein Feedforward Netzwerk mit 3 Input-Neuronen in der Eingabeschicht, einer versteckten Schicht mit 4 versteckten Neuronen und einer Ausgabeschicht mit 2 Ausgabe-Neuronen \cite{Bishop1995}.\\
-Ein Feedforward Netzwerk kann beliebig viele versteckten Schichten enthalten, aber nur eine Eingabe- und eine Ausgabeschicht. Die Anzahl der Neuronen in den versteckten Schichten kann frei gew\"ahlt werden. Eine möglichst sinnvolle Anzahl dieser, genauso wie eine möglichst passende Anzahl der versteckten Schichten lassen sich für das jeweilige Problem nur experimentell bestimmen \cite{handson}. Man sollte darauf achten, nicht zu wenige Neuronen zu verwenden, da sonst die Lernkapazit\"at m\"oglicherweise zu eingeschr\"ankt ist. Auch zu viele Neuronen k\"onnen problematisch sein, da der Zeitaufwand, jedes der vielen Neuronen zu trainieren, sehr groß wird und die Effizienz des Netzwerks darunter leidet \cite{Rashid}. Man kann bereits mit einer versteckten Schicht und einer ausreichend gro\ss en Anzahl von Neuronen jedes Problem simulieren, tendenziell ist es aber besser die Anzahl der Schichten zu erh\"ohen, anstatt die Anzahl der Neuronen pro Schicht \cite{handson}. 
+Ein Feedforward Netzwerk kann beliebig viele versteckte Schichten enthalten, aber nur eine Eingabe- und eine Ausgabeschicht. Die Anzahl der Neuronen in den versteckten Schichten kann frei gew\"ahlt werden. Eine möglichst sinnvolle Anzahl dieser, genauso wie eine möglichst passende Anzahl der versteckten Schichten lassen sich für das jeweilige Problem nur experimentell bestimmen \cite{handson}. Man sollte darauf achten, nicht zu wenige Neuronen zu verwenden, da sonst die Lernkapazit\"at m\"oglicherweise zu eingeschr\"ankt ist. Auch zu viele Neuronen k\"onnen problematisch sein, da der Zeitaufwand, jedes der vielen Neuronen zu trainieren, sehr groß wird und die Effizienz des Netzwerks darunter leidet \cite{Rashid}. Man kann bereits mit einer versteckten Schicht und einer ausreichend gro\ss en Anzahl von Neuronen jedes Problem simulieren, tendenziell ist es aber besser die Anzahl der Schichten zu erh\"ohen, anstatt die Anzahl der Neuronen pro Schicht \cite{handson}. 
 
 
 
 \section{Der Input-Tensor}
-Vektoren und Matrizen werden in \gls{TF} als Tensoren bezeichnet. Der Input eines Neuronalen Netzes ist ein n-dimensionaler Vektor, der f\"ur jedes Input-Neuron einen Wert enth\"alt. Die Anzahl der Input-Neuronen richtet sich nach dem untersuchten Problem. Das Einf\"uhrungsbeispiel f\"ur \gls{TF}, das in etwa dem $"$Hello World$"$ f\"ur Programmiersprachen entspricht, behandelt ein Klassifikationsproblem \cite{handson}. In diesem Problem sollen mithilfe der \gls{MNIST} Datenbank, die tausende von handgeschriebenen $28 \times 28$ Bilder der Zahlen von 1-9 enth\"alt, das Neuronale Netz lernen handgeschriebene Ziffern zu unterscheiden. F\"ur jedes dieser Bilder existiert eine $28 \times 28$ Matrix mit Grauwerten. Mit dem Befehl \lstinline$reshape(-1,..)$ \cite{handson} l\"asst es sich in einen eindimensionalen Vektor mit  $28*28=784$ Input-Neuronen verwandeln.\\
+Vektoren und Matrizen werden in \gls{TF} als Tensoren bezeichnet. Der Input eines Neuronalen Netzes ist ein n-dimensionaler Vektor, der f\"ur jedes Input-Neuron einen Wert enth\"alt. Die Anzahl der Input-Neuronen richtet sich nach dem untersuchten Problem. Das Einf\"uhrungsbeispiel f\"ur \gls{TF}, das in etwa dem $"$Hello World$"$ f\"ur Programmiersprachen entspricht, behandelt ein Klassifikationsproblem \cite{handson}. In diesem Problem sollen mithilfe der \gls{MNIST} Datenbank, die tausende von handgeschriebenen $28 \times 28$ Bilder der Zahlen von 0-9 enth\"alt, das Neuronale Netz lernen handgeschriebene Ziffern zu unterscheiden. F\"ur jedes dieser Bilder existiert eine $28 \times 28$ Matrix mit Grauwerten. Mit dem Befehl \lstinline$reshape(-1,..)$ \cite{handson} l\"asst es sich in einen eindimensionalen Vektor mit  $28*28=784$ Input-Neuronen verwandeln.\\
 Input-Tensoren werden in \gls{TF} mit Platzhaltern angelegt, da w\"ahrend des Lernprozesses der Input-Tensor f\"ur jedes zu lernende Beispiel aktualisiert wird. Um den Platzhalter anzulegen, verwendet man den Befehl \cite{cookbook}
 \vspace{0.3cm}
 \begin{lstlisting}
@@ -106,11 +106,11 @@ Der \gls{TF} Befehl, um die Gewichte zwischen zwei Schichten zu initialisieren, 
 
 \vspace{0.3cm}
 \begin{lstlisting}
-init = tf.truncated_normal(n_inputs, n_neurons)
+init = tf.truncated_normal([n_inputs, n_neurons])
 W = tf.Variable(init,name="weights")
 \end{lstlisting}
 
-Damit werden die Gewichte mit zuf\"alligen Gewichten belegt und es wird eine Matrix bzw. Tensor der Dimension \lstinline$(input_neuronen$$ \times $\lstinline$versteckte_neuronen)$ erzeugt.\\
+Damit werden die Gewichte mit zuf\"alligen Werten belegt und es wird eine Matrix bzw. Tensor der Dimension \lstinline$(input_neuronen$$ \times $\lstinline$versteckte_neuronen)$ erzeugt.\\
 Um den Output des Neuronalen Netzes zu berechnen, f\"uhrt man mithilfe des Befehls\\ \lstinline$tf.matmul(input,W)$ eine Matrixmultiplikation zwischen Input-Tensor und Gewichtsmatrix durch \cite{handson}. \\
 So erhält man einen weiteren Tensor, der f\"ur jedes versteckte Neuron einen Wert besitzt. Auf diese Werte wendet man nun eine Aktivierungsfunktion an. Das Ergebnis nennt man Aktivit\"at \cite{Ertel2013} der versteckten Schicht.\\
 Dieses Verfahren kann man nun f\"ur beliebig viele versteckte Schichten wiederholen. Dabei nutzt man jeweils die Aktivit\"at der aktuellen Schicht und die Gewichtsmatrix der nächsten versteckten Schicht, führt eine Matrixmultiplikation durch und wendet eine Aktivierungsfunktion an. So wird Stück für Stück die Aktivit\"at aller Schichten berechnet. Die Aktivität der Outputschicht ist der eigentliche Output, den das Netz produziert.
@@ -161,11 +161,11 @@ F\"ur diese gilt:
 	\right.
 \end{align*}
 
-Sie kann schneller berechnet werden und hat den Vorteil, dass weder Werte nahe der Null verschwinden, noch die Werte zu gro\ss werden k\"onnen \cite{cookbook}.
+Sie kann schneller berechnet werden und hat den Vorteil, dass weder Werte nahe der Null verschwinden, noch die Werte zu groß werden k\"onnen \cite{cookbook}.
 
 
 \subsection{Sigmoidfunktion}
-Eine andere Aktivierungsfunktion ist die Sigmoidfunktion. Beliebt wurde die Sigmoidfunktion in den 1980er Jahren, um die davor verwendeten Stufenfunktionen zu ersetzen. Die Sigmoidfunktion hatte den Vorteil, dass sie der Stufenfunktion ähnelte, dabei aber auf dem ganzen Wertebereich differenzierbar war. Sie wurde bis in die 2000er Jahre häufig verwendet. Sie wird mittlerweile häufig durch die relu Funktion ersetzt \cite{Goodfellow}. \\
+Eine andere Aktivierungsfunktion ist die Sigmoidfunktion. Beliebt wurde die Sigmoidfunktion in den 1980er Jahren, um die davor verwendeten Stufenfunktionen zu ersetzen. Die Sigmoidfunktion hatte den Vorteil, dass sie der Stufenfunktion ähnelte, dabei aber auf dem ganzen Wertebereich differenzierbar war. Sie wurde bis in die 2000er Jahre verwendet. Mittlerweile wird sie häufig durch die \gls{ReLU} Funktion ersetzt \cite{Goodfellow}. \\
 Die in \gls{TF} verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
 
 \begin{equation}
@@ -179,7 +179,7 @@ Die in \gls{TF} verwendete Sigmoidfunktion hat folgende Form: \cite{cookbook}
 \end{figure}
 
 
-Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, daher findet sie häufig Anwendung in binären Klassifikationsproblemen \cite{Goodfellow}. Ein Problem der Sigmoidfunktion ist das ihre Ableitung geringer wird je größer bzw. kleiner die eingesetzten Werte sind. Da für das Lernen die Ableitung der Sigmoidfunktion verwendet wird, wird der Lernprozess für sehr große Werte bzw. sehr kleine Werte sehr langsam \cite{Goodfellow}. In \gls{TF} ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
+Der Wertebereich der Sigmoidfunktion liegt zwischen 0 und 1, daher findet sie häufig Anwendung in binären Klassifikationsproblemen \cite{Goodfellow}. Ein Problem der Sigmoidfunktion ist, dass ihre Ableitung geringer wird je größer bzw. kleiner die eingesetzten Werte sind. Da für das Lernen die Ableitung der Sigmoidfunktion verwendet wird, wird der Lernprozess für sehr große Werte bzw. sehr kleine Werte sehr langsam \cite{Goodfellow}. In \gls{TF} ist sie mit dem Befehl \lstinline$tf.sigmoid(x, name=None)$ \cite{building}
 definiert.
 
 
@@ -211,12 +211,12 @@ softmax(x)_i=\frac{e^{x_i}}{\sum_{j=1}^{N}e^{x_j}}.
 \end{equation}
 
 
-Wie man sieht liegen die Werte der Softmaxfunktion zwischen Null und Eins. Summiert man alle Werte auf erhält man Eins, wie man es von einer Wahrscheinlichkeitsverteilung erwartet. Um den Output des Netzes zu bestimmen nimmt man nun den Wert mit der größten Wahrscheinlichkeit \cite{handson}. Die Softmaxfunktion wird meistens in Verbindung mit der Cross Entropy Kostenfunktion verwendet, die sich sehr gut für Klassifikationsprobleme eignet und im nächsten Kapitel näher erläutert wird.
+Die Werte der Softmaxfunktion liegen zwischen Null und Eins. Summiert man alle Werte auf erhält man Eins, wie man es von einer Wahrscheinlichkeitsverteilung erwartet. Um den Output des Netzes zu bestimmen nimmt man nun den Wert mit der größten Wahrscheinlichkeit \cite{handson}. Die Softmaxfunktion wird meistens in Verbindung mit der Cross Entropy Kostenfunktion verwendet, die sich sehr gut für Klassifikationsprobleme eignet und im nächsten Kapitel näher erläutert wird.
 
 
 
 \section{Kostenfunktionen}
-Kosten- oder Fehlerfunktionen sind ein Maß daf\"ur, wie gut ein \gls{NN} lernt. Es stellt eine berechenbare Formel bereit, die den durch das Netz berechneten Output f\"ur ein Trainingsbeispiel mit dem zu lernenden Output vergleicht. Au\ss erdem werden sie f\"ur das lernen des \gls{NN} ben\"otigt, da aus den Ableitungen der jeweiligen Kostenfunktion f\"ur das zugeh\"orige Gewicht die neuen Gewichte gebildet werden \cite{Goodfellow}.
+Kosten- oder Fehlerfunktionen sind ein Maß daf\"ur, wie gut ein \gls{NN} lernt. Es stellt eine berechenbare Formel bereit, die den durch das Netz berechneten Output f\"ur ein Trainingsbeispiel mit dem zu lernenden Output vergleicht. Au\ss erdem werden sie f\"ur das Lernen des \gls{NN} ben\"otigt, da aus den Ableitungen der jeweiligen Kostenfunktion f\"ur das zugeh\"orige Gewicht die neuen Gewichte gebildet werden \cite{Goodfellow}.
 
 
 
@@ -246,8 +246,7 @@ Eine andere M\"oglichkeit ist die sogenannte Cross Entropy Funktion \cite{Nielse
 CE= - \frac{1}{N} \sum_{i=1}^{N}\hat{o}_i \ln o_i + (1- \hat{o}_i) \ln (1-o_i)
 \end{equation}
 
-Der Vorteil der Cross Entropy Funktion besteht darin, dass sie umso schneller lernt je gr\"o\ss er der anf\"angliche Fehler ist. Beginnt man also bei sehr ung\"unstig gew\"ahlten zuf\"alligen Gewichten mit dem Lernprozess, wird Cross Entropy schneller bessere Ergebnisse liefern als der \gls{MSE} \cite{Nielsen}. Welche man letztendlich verwendet, h\"angt vom zugrundeliegenden Problem ab. Während der \gls{MSE} bei Regressionen beliebt ist, findet Cross Entropy bei Klassifikationsproblemen häufig Anwendung.\\
-Cross Entropy wird in \gls{TF} mit dem Befehl
+Der Vorteil der Cross Entropy Funktion besteht darin, dass sie umso schneller lernt je gr\"o\ss er der anf\"angliche Fehler ist. Beginnt man also bei sehr ung\"unstig gew\"ahlten zuf\"alligen Gewichten mit dem Lernprozess, wird Cross Entropy schneller bessere Ergebnisse liefern als der \gls{MSE} \cite{Nielsen}. Welche man letztendlich verwendet, h\"angt vom zugrundeliegenden Problem ab. Während der \gls{MSE} bei Regressionen beliebt ist, findet Cross Entropy bei Klassifikationsproblemen häufig Anwendung. Cross Entropy wird in \gls{TF} mit dem Befehl
 
 \vspace{0.3cm} 
 \begin{lstlisting}
@@ -259,7 +258,7 @@ verwendet \cite{cookbook}. Wie man sieht wird in dieser Version des Befehls bere
 
 
 \section{Der Lernprozess}
-Damit das Netz lernt m\"ussen nach und nach die Gewichte angepasst werden. Zu diesem Zweck berechnet man die Ableitung der Kostenfunktion und benutzt sie, um die Gewichte abzu\"andern. Dieses Verfahren wird $\glqq$Backpropagation of Error$\grqq$ mittels $\glqq$Gradient Descent$\grqq$ - dem Gradientabstiegsverfahren - genannt.\\
+Damit das Netz lernt m\"ussen nach und nach die Gewichte angepasst werden. Zu diesem Zweck berechnet man die Ableitung der Kostenfunktion und benutzt sie, um die Gewichte abzu\"andern. Dieses Verfahren wird $\glqq$Backpropagation of Error$\grqq$ mittels $\glqq$Gradient Descent$\grqq$ - dem Gradientenabstiegsverfahren - genannt.\\
 Das Update der Gewichte funktioniert nach folgender Regel: \cite{Rojas1996}
 
 \begin{equation}
